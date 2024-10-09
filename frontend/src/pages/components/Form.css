@@ -1,0 +1,58 @@
+.checkboxes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-sizing:border-box;
+    position:relative;
+    border: solid 1px #036089;
+    width: 75%;
+    margin-left: 12.5%;
+    padding: 25px 25px;
+    margin-bottom: 2vh;
+}
+.checkboxes>.nameCheckbox{
+    position:absolute;
+    top:-25px; left: 4%;
+    padding: 0 1.5%;
+    background-color: #fff;
+    text-align: center;
+}
+
+.checkboxes>div,
+.checkboxes>.columns>div{
+    margin: 15px 15px;
+}
+
+.checkboxes>div>label>input[type="checkbox"],
+.checkboxes>.columns>div>label>input[type="checkbox"]{
+    width: 1.6em;
+    height: 1.6em;
+    cursor: pointer;
+}
+
+#thema{
+    width: 75%;
+    box-sizing:border-box;
+    height: max(20vh,250px);
+    resize: none;
+    border: solid 1px #036089;
+    margin-left: 12.5%;
+    padding: 10px;
+    margin-bottom: 2vh;
+}
+
+#submitButton{
+    border: solid 1px #036089;
+    width: 75%;
+    box-sizing:border-box;
+    text-align: center;
+    padding: 2vh 0;
+    margin-left: 12.5%;
+    color:#036089;
+    background-color: #fff;
+    margin-bottom: 2vh;
+}
+#submitButton:hover{
+    color:#fff;
+    background-color: #036089;
+}

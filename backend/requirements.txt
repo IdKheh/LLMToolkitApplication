@@ -1,0 +1,7 @@
+asgiref==3.8.1
+Django==5.1
+django-cors-headers==4.4.0
+djangorestframework==3.15.2
+LLMToolkit @ git+https://github.com/DrozdzynskiDawid/PUT_Engineering_Thesis_Project.git@532b29f4367e219d5d7e4d6e376aaca02bef35dc
+sqlparse==0.5.1
+typing_extensions==4.12.2
