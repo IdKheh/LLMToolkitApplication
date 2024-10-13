@@ -1,7 +1,5 @@
-from .MethodCaller import *
-from .MethodResultClass import *
+from .MethodResult import *
 
 __all__ = [
-    'MethodCaller',
-    'MethodResultClass'
+    'MethodResult'
 ]

@@ -1,9 +1,9 @@
 from .ModelCaller import *
-from .ModelResultClass import *
+from .ModelResult import *
 
 
 
 __all__ = [
     'ModelCaller',
-    'ModelResultClass'
+    'ModelResult'
 ]
