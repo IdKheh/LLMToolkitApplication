@@ -33,7 +33,7 @@ class MethodResult:
                 self.__value = fryFormula(text)
             case 'Gunning Fog':
                 self.__value = gunningFog(text)
-            case 'Linear White':
+            case 'Linsear Write':
                 self.__value = linearWhite(text)
             case 'Raygor Estimate':
                 self.__value = raygorEstimate(text)

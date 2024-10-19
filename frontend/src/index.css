@@ -13,8 +13,10 @@ code {
 }
 
 header{
-   text-align: center;
-   padding: 5vh 0;
+  background-color: #036089;
+  color: #fff;
+  text-align: center;
+  padding: 5vh 0;
 }
 
 footer{

@@ -1,3 +1,6 @@
+#content{
+    margin-top: 5vh;
+}
 .checkboxes{
     display: flex;
     flex-wrap: wrap;
@@ -51,6 +54,7 @@
     color:#036089;
     background-color: #fff;
     margin-bottom: 2vh;
+    transition: 500ms;
 }
 #submitButton:hover{
     color:#fff;

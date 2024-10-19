@@ -2,6 +2,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import Statistic from './pages/Statistic';
+import About from "./pages/About";
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
 import './index.css';
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="statistic" element={<Statistic />} />
+          <Route path="about" element={<About />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
