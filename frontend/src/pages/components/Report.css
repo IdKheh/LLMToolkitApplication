@@ -1,0 +1,155 @@
+#report {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20vh 10%;
+    list-style: none;
+    margin: 20px;
+    max-width: 100%;
+}
+
+.models {
+    border: 1px solid #036089;
+    padding: max(1.5%, 25px);
+    background-color: #fff;
+    flex: 1 1 300px; 
+    box-sizing: border-box;
+}
+
+.methods {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.method {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+    border-bottom: 1px solid #036089;
+}
+
+.valueMethod {
+    color: #444;
+}
+
+/* Info Icon Styling */
+.info-container {
+    position: relative; /* Ensures popup is positioned relative to the icon */
+}
+
+.info-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #036089;
+    margin-left: 25px;
+}
+
+/* Informacy Popup */
+.informacy-popup {
+    position: absolute;
+    top: 30px;
+    left: -50px; /* Adjust for better alignment */
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 250px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Show popup on hover */
+.info-container:hover .informacy-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+.informacy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.informacy-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.informacy-item.header {
+    font-weight: bold;
+    border-bottom: 2px solid #036089;
+}
+
+.info-value {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #444;
+}
+
+.info-description {
+    color: #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+}
+
+.bouncing-dots {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    background-color: #036089;
+    border-radius: 50%;
+    animation: bounce 2.5s infinite;
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}

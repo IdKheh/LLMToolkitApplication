@@ -1,0 +1,45 @@
+nav{
+    background-color: #036089;
+    color:#fff;
+}
+nav > ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 0;
+    justify-content: center;
+    margin: 0;
+}
+
+nav > ul > li {
+    text-align: center;
+    flex: 0.01 0.01 100px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    min-height: 40px;
+    transition: background-color 0.3s;
+}
+
+nav > ul > li > a {
+    display: block;
+    width: 100%; 
+    height: 100%;
+    text-decoration: none;
+    line-height: 80px;
+    color: #fff !important;
+    border-top-left-radius: 8%;
+    border-top-right-radius: 8%;
+    background-color: #036089;
+    transition-duration: 500ms;
+}
+
+nav > ul > li>a:hover {
+    background-color: #fff;
+    color: #036089 !important;
+}
+
+a:visited {
+    color: black;
+}
