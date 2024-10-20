@@ -9,6 +9,7 @@ COPY requirements.txt /app/backend/
 RUN     pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/backend/
+RUN python3 -m nltk.downloader punkt
 
 ENV PORT=8000
 EXPOSE 8000

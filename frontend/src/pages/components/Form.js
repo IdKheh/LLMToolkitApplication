@@ -24,10 +24,8 @@ const Form = ({ setResult, setClicked }) => {
         { method: "Sprache Formula Original", check: false, group: "Proficiency" },
         { method: "Sprache Formula Revised", check: false, group: "Proficiency" },
 
-        { method: "method 1", check: false, group: "Grammar" },
-        { method: "method 2", check: false, group: "Grammar" },
-        { method: "method 3", check: false, group: "Grammar" },
-        { method: "method 4", check: false, group: "Grammar" },
+        { method: "Part of Speech Tagging", check: false, group: "Grammar" },
+        { method: "Grammatical Error Rate using LanguageTool", check: false, group: "Grammar" },
 
 
         { method: "method 5", check: false, group: "Semantic" },

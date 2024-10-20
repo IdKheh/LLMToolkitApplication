@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './Report.css'
+import POSTaggingBarChart from './helpers/POSTaggingBarChart';
 
 const allMethods = [
     { method: "Automated Readability Index",
@@ -66,6 +67,7 @@ const allMethods = [
     { method: "SMOG Easier", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Original", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Revised", information: [{values:"Value is class"}]},
+    { method: "Grammatical Error Rate using LanguageTool", information: [{values:"Value is a percentage of sentences in a text that contain grammatical mistakes."}]},
 ];
 
 const getInformacyDetails = (methodName) => {
@@ -90,6 +92,28 @@ const getInformacyDetails = (methodName) => {
         </ul>
     );
 };
+
+const getDisplayedValue = (value, name) => {
+    if (name === "Part of Speech Tagging") {
+        return <POSTaggingBarChart data={value} />;
+    }
+    if (name === "Grammatical Error Rate using LanguageTool") {
+        value = parseFloat(value);
+        value = Math.round(value * 100) / 100;
+        value = value + "%";
+    }
+    
+    return (
+        <>
+            {value}
+            <span className="info-icon material-icons">info</span>
+            <div className="informacy-popup">
+                {getInformacyDetails(name)}
+            </div>
+        </>
+    );
+};
+
 const Report = ({ resultRequest, clickToRequest }) => {
     if (!clickToRequest) return <p></p>;
 
@@ -105,12 +129,8 @@ const Report = ({ resultRequest, clickToRequest }) => {
                                     <li className="method" key={methodIndex}>
                                         <p className="nameMethod">{method.nameMethod}</p>
                                         <div className="info-container">
-                                            {method.value}
-                                            <span className="info-icon material-icons">info</span>
-                                            <div className="informacy-popup">
-                                                {getInformacyDetails(method.nameMethod)}
-                                            </div>
-                                            </div>
+                                            {getDisplayedValue(method.value, method.nameMethod)}
+                                        </div>
                                     </li>
                                 ))}
                             </ul>

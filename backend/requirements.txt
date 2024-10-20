@@ -16,13 +16,14 @@ idna==3.10
 Jinja2==3.1.4
 langcodes==3.4.1
 language_data==1.2.0
-git+https://github.com/DrozdzynskiDawid/PUT_Engineering_Thesis_Project.git@WD_implement_part_of_library#egg=LLMToolkit
+git+https://github.com/DrozdzynskiDawid/PUT_Engineering_Thesis_Project.git@main#egg=LLMToolkit
 
 marisa-trie==1.2.0
 markdown-it-py==3.0.0
 MarkupSafe==3.0.1
 mdurl==0.1.2
 murmurhash==1.0.10
+nltk==3.8.1
 numpy==2.0.2
 packaging==24.1
 preshed==3.0.9

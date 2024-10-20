@@ -1,5 +1,5 @@
 def modelCaller(modelName: str, thema: str):
-    if modelName == "I don't want models":
+    if modelName == "I don't use models":
         return thema
     
     
