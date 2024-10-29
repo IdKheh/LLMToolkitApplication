@@ -1,5 +1,5 @@
 from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, gradeLevelFleschKincaid, forcast, \
-    fryFormula, gunningFog, linearWhite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
+    fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
     spracheRevisedFormula
 from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER
 
@@ -35,7 +35,7 @@ class MethodResult:
             case 'Gunning Fog':
                 self.__value = gunningFog(text)
             case 'Linsear Write':
-                self.__value = linearWhite(text)
+                self.__value = linsearWrite(text)
             case 'Raygor Estimate':
                 self.__value = raygorEstimate(text)
             case 'SMOG':

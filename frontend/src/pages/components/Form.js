@@ -7,7 +7,7 @@ const Form = ({ setResult, setClicked }) => {
         { model: "Model 1", check: false },
         { model: "Model 2", check: false },
         { model: "Model 3", check: false },
-        { model: "I don't use models", check: false },
+        { model: "I don't use models", check: true },
     ]);
 
     const [methods, setMethods] = useState([
