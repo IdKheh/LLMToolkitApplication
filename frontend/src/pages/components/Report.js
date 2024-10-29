@@ -1,24 +1,23 @@
 import React from 'react';
-import { useState } from 'react';
 import './Report.css'
 import POSTaggingBarChart from './helpers/POSTaggingBarChart';
 
 const allMethods = [
     { method: "Automated Readability Index",
-        information: [{values: "1", schoolClass: "Kindergarten"},
-            {values: "2", schoolClass: "1"},
-            {values: "3", schoolClass: "2"},
-            {values: "4", schoolClass: "3"},
-            {values: "5", schoolClass: "4"},
-            {values: "6", schoolClass: "5"},
-            {values: "7", schoolClass: "6"},
-            {values: "8", schoolClass: "7"},
-            {values: "9", schoolClass: "8"},
-            {values: "10", schoolClass: "9"},
-            {values: "11", schoolClass: "10"},
-            {values: "12", schoolClass: "11"},
-            {values: "13", schoolClass: "12"},
-            {values: "14", schoolClass: "College"}]},
+        information: [{values: "<1.0", schoolClass: "Kindergarten"},
+            {values: "1.0-2.0", schoolClass: "1"},
+            {values: "2.0-3.0", schoolClass: "2"},
+            {values: "3.0-4.0", schoolClass: "3"},
+            {values: "4.0-5.0", schoolClass: "4"},
+            {values: "5.0-6.0", schoolClass: "5"},
+            {values: "6.0-7.0", schoolClass: "6"},
+            {values: "7.0-8.0", schoolClass: "7"},
+            {values: "8.0-9.0", schoolClass: "8"},
+            {values: "9.0-10.0", schoolClass: "9"},
+            {values: "10.0-11.0", schoolClass: "10"},
+            {values: "11.0-12.0", schoolClass: "11"},
+            {values: "12.0-13.0", schoolClass: "12"},
+            {values: "13.0-14.0", schoolClass: "College"}]},
     { method: "Coleman-Liau", information:[{values:"Value is class"}] },
     { method: "Dale-Chall", information:[{values: "<4.9", schoolClass: "<4"},
             {values: "5.0-5.9", schoolClass: "5-6"},
