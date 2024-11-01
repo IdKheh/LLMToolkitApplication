@@ -50,7 +50,7 @@ class MethodResult:
             # Grammar
             case 'Part of Speech Tagging':
                 self.__value = getPartOfSpeechTagging(text)
-            case 'Grammatical Error Rate using LanguageTool':
+            case 'Grammar check using LanguageTool':
                 self.__value = getGER(text)
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")

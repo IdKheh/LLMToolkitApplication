@@ -1,6 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import './Report.css'
 import POSTaggingBarChart from './helpers/POSTaggingBarChart';
+import STRINGS from '../../Strings';
+import ErrorsList from './helpers/ErrorsList';
 
 const allMethods = [
     { method: "Automated Readability Index",
@@ -66,7 +69,7 @@ const allMethods = [
     { method: "SMOG Easier", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Original", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Revised", information: [{values:"Value is class"}]},
-    { method: "Grammatical Error Rate using LanguageTool", information: [{values:"Value is a percentage of sentences in a text that contain grammatical mistakes."}]},
+    { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERLanguageToolValue}]},
 ];
 
 const getInformacyDetails = (methodName) => {
@@ -93,11 +96,11 @@ const getInformacyDetails = (methodName) => {
 };
 
 const getDisplayedValue = (value, name) => {
-    if (name === "Part of Speech Tagging") {
+    if (name === STRINGS.POSTaggingName) {
         return <POSTaggingBarChart data={value} />;
     }
-    if (name === "Grammatical Error Rate using LanguageTool") {
-        value = parseFloat(value);
+    if (name === STRINGS.GERLanguageToolName) {
+        value = parseFloat(value[0]);
         value = Math.round(value * 100) / 100;
         value = value + "%";
     }
@@ -114,8 +117,28 @@ const getDisplayedValue = (value, name) => {
 };
 
 const Report = ({ resultRequest, clickToRequest }) => {
-    if (!clickToRequest) return <p></p>;
+    const [clickToShowErrors, setClickedShowErrors] = useState(false);
+    const showErrorsOnClick = (errorsArray) => {
+        setClickedShowErrors(!clickToShowErrors);
+        if (clickToShowErrors && errorsArray.length > 0) {
+            console.log(errorsArray);
+            return (
+                <ul>
+                    {errorsArray.map((error, index) => (
+                        <li key={index}>{error.rule.description}</li>
+                    ))}
+                </ul>
+            )
+        }
+        else {
+            console.log("TERAZ CHOWAJ");
+            return (
+                <></>
+            )
+        }
+    };
 
+    if (!clickToRequest) return <p></p>;
     return (
         <div>
             {resultRequest.length > 0 ? (
@@ -126,7 +149,12 @@ const Report = ({ resultRequest, clickToRequest }) => {
                             <ul className="methods">
                                 {model.methodsResult.map((method, methodIndex) => (
                                     <li className="method" key={methodIndex}>
-                                        <p className="nameMethod">{method.nameMethod}</p>
+                                        <p className="nameMethod">
+                                            {method.nameMethod} <br></br>
+                                            {method.nameMethod === STRINGS.GERLanguageToolName && (
+                                                <ErrorsList errorsArray={method.value[1]}></ErrorsList>
+                                            )}
+                                        </p>
                                         <div className="info-container">
                                             {getDisplayedValue(method.value, method.nameMethod)}
                                         </div>

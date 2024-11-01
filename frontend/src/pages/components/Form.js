@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from "axios";
 import './Form.css';
+import STRINGS from '../../Strings';
 
 const Form = ({ setResult, setClicked }) => {
     const [models, setModels] = useState([
@@ -24,8 +25,8 @@ const Form = ({ setResult, setClicked }) => {
         { method: "Sprache Formula Original", check: false, group: "Proficiency" },
         { method: "Sprache Formula Revised", check: false, group: "Proficiency" },
 
-        { method: "Part of Speech Tagging", check: false, group: "Grammar" },
-        { method: "Grammatical Error Rate using LanguageTool", check: false, group: "Grammar" },
+        { method: STRINGS.POSTaggingName, check: false, group: "Grammar" },
+        { method: STRINGS.GERLanguageToolName, check: false, group: "Grammar" },
 
 
         { method: "method 5", check: false, group: "Semantic" },
