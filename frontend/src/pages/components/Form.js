@@ -27,6 +27,8 @@ const Form = ({ setResult, setClicked }) => {
 
         { method: STRINGS.POSTaggingName, check: false, group: "Grammar" },
         { method: STRINGS.GERLanguageToolName, check: false, group: "Grammar" },
+        { method: STRINGS.GERIKorektorName, check: false, group: "Grammar" },
+        { method: STRINGS.spellCheckerName, check: false, group: "Grammar" },
 
 
         { method: "method 5", check: false, group: "Semantic" },
