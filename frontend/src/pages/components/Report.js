@@ -69,7 +69,8 @@ const allMethods = [
     { method: "SMOG Easier", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Original", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Revised", information: [{values:"Value is class"}]},
-    { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERLanguageToolValue}]},
+    { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERValue}]},
+    { method: STRINGS.GERIKorektorName, information: [{values: STRINGS.GERValue}]}
 ];
 
 const getInformacyDetails = (methodName) => {
@@ -99,7 +100,7 @@ const getDisplayedValue = (value, name) => {
     if (name === STRINGS.POSTaggingName) {
         return <POSTaggingBarChart data={value} />;
     }
-    if (name === STRINGS.GERLanguageToolName) {
+    if (name === STRINGS.GERLanguageToolName || name === STRINGS.GERIKorektorName) {
         value = parseFloat(value[0]);
         value = Math.round(value * 100) / 100;
         value = value + "%";
@@ -117,27 +118,6 @@ const getDisplayedValue = (value, name) => {
 };
 
 const Report = ({ resultRequest, clickToRequest }) => {
-    const [clickToShowErrors, setClickedShowErrors] = useState(false);
-    const showErrorsOnClick = (errorsArray) => {
-        setClickedShowErrors(!clickToShowErrors);
-        if (clickToShowErrors && errorsArray.length > 0) {
-            console.log(errorsArray);
-            return (
-                <ul>
-                    {errorsArray.map((error, index) => (
-                        <li key={index}>{error.rule.description}</li>
-                    ))}
-                </ul>
-            )
-        }
-        else {
-            console.log("TERAZ CHOWAJ");
-            return (
-                <></>
-            )
-        }
-    };
-
     if (!clickToRequest) return <p></p>;
     return (
         <div>
@@ -151,8 +131,8 @@ const Report = ({ resultRequest, clickToRequest }) => {
                                     <li className="method" key={methodIndex}>
                                         <p className="nameMethod">
                                             {method.nameMethod} <br></br>
-                                            {method.nameMethod === STRINGS.GERLanguageToolName && (
-                                                <ErrorsList errorsArray={method.value[1]}></ErrorsList>
+                                            {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName].includes(method.nameMethod) && (
+                                                <ErrorsList errorsArray={method.value[1]} methodName={method.nameMethod}></ErrorsList>
                                             )}
                                         </p>
                                         <div className="info-container">

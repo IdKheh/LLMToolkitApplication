@@ -1,7 +1,7 @@
 from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, gradeLevelFleschKincaid, forcast, \
     fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
     spracheRevisedFormula
-from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER
+from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER, getGERIKorektor
 
 
 class MethodResult:
@@ -52,6 +52,8 @@ class MethodResult:
                 self.__value = getPartOfSpeechTagging(text)
             case 'Grammar check using LanguageTool':
                 self.__value = getGER(text)
+            case 'Grammar check using IKorektor':
+                self.__value = getGERIKorektor(text)
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")
 
