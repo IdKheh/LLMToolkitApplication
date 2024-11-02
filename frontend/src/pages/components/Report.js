@@ -70,7 +70,8 @@ const allMethods = [
     { method: "Sprache Formula Original", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Revised", information: [{values:"Value is class"}]},
     { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERValue}]},
-    { method: STRINGS.GERIKorektorName, information: [{values: STRINGS.GERValue}]}
+    { method: STRINGS.GERIKorektorName, information: [{values: STRINGS.GERValue}]},
+    { method: STRINGS.spellCheckerName, information: [{values: STRINGS.spellCheckerValue}]}
 ];
 
 const getInformacyDetails = (methodName) => {
@@ -105,6 +106,9 @@ const getDisplayedValue = (value, name) => {
         value = Math.round(value * 100) / 100;
         value = value + "%";
     }
+    if (name === STRINGS.spellCheckerName) {
+        value = Object.keys(value).length;
+    }
     
     return (
         <>
@@ -131,8 +135,11 @@ const Report = ({ resultRequest, clickToRequest }) => {
                                     <li className="method" key={methodIndex}>
                                         <p className="nameMethod">
                                             {method.nameMethod} <br></br>
-                                            {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName].includes(method.nameMethod) && (
-                                                <ErrorsList errorsArray={method.value[1]} methodName={method.nameMethod}></ErrorsList>
+                                            {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName, STRINGS.spellCheckerName].includes(method.nameMethod) && (
+                                                <ErrorsList 
+                                                    errorsArray={method.nameMethod === STRINGS.spellCheckerName ? method.value : method.value[1]} 
+                                                    methodName={method.nameMethod}
+                                                />
                                             )}
                                         </p>
                                         <div className="info-container">

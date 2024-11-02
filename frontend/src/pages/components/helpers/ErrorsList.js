@@ -35,6 +35,15 @@ const ErrorsList = ({ errorsArray, methodName }) => {
                     ))}
                 </ul>
             )}
+            {methodName === STRINGS.spellCheckerName && showErrors && Object.keys(errorsArray).length > 0 && (
+                <ul>
+                    {Object.entries(errorsArray).map(([key, value], index) => (
+                        <li className="errorsListElement" key={index}>
+                            <b>{key}</b>: {value}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };
