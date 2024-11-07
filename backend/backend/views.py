@@ -35,6 +35,6 @@ def send_some_data(request):
             responseData.append(modelResult.to_dict())
         except Exception as err:
             print(str(err))
-            return Response({"message": str(err)}, status=400)
+            return Response({"error": str(err)}, status=400)
 
     return Response({"message": responseData})

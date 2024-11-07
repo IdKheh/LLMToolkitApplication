@@ -3,7 +3,8 @@ import axios from "axios";
 import './Form.css';
 import STRINGS from '../../Strings';
 
-const Form = ({ setResult, setClicked }) => {
+const Form = ({ setResult, setClicked, setError}) => {
+
     const [models, setModels] = useState([
         { model: "Model 1", check: false },
         { model: "Model 2", check: false },
@@ -72,10 +73,21 @@ const Form = ({ setResult, setClicked }) => {
         const filteredMethods = methods.filter(item => item.check);
         const method = filteredMethods.map(item => item.method);
         setClicked(true);
+        setResult([]);
+        setError("");
 
         axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}`)
             .then(function (response) {
                 setResult(response.data.message);
+                setClicked(false);
+            })
+            .catch(error => {
+                if (error.response && error.response.data && error.response.data.error) {
+                    setError(error.response.data.error);
+                } else {
+                    setError("An unexpected error occurred.");
+                }
+                setClicked(false);
             });
     };
 
@@ -94,7 +106,7 @@ const Form = ({ setResult, setClicked }) => {
                                     checked={check}
                                     disabled={
                                         models[models.length - 1].check && i !== models.length - 1
-                                    } // Disable other models if "I don't use models" is checked
+                                    }
                                 />
                                 <span>{model}</span>
                             </label>

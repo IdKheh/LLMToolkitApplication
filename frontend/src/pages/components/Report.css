@@ -97,7 +97,11 @@
     color: #666;
 }
 
-
+#error{
+    text-align: center;
+    font-size: 18px;
+    padding: 5vh 0%;
+}
 
 
 

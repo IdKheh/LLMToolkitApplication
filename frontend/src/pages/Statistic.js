@@ -1,10 +1,8 @@
-import { useState } from 'react';
-
 import './css/Statistic.css';
 
 const Statistic = () => {
 	return(
-		<div id="container">
+		<div id="containerNoPage">
 			<p id='todo'>tutaj kiedyś będą wykresy</p>
 		</div>	
 	);				
