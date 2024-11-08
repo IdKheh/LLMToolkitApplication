@@ -6,9 +6,14 @@ import STRINGS from '../../Strings';
 const Form = ({ setResult, setClicked, setError}) => {
 
     const [models, setModels] = useState([
-        { model: "Model 1", check: false },
-        { model: "Model 2", check: false },
-        { model: "Model 3", check: false },
+        { model: "HuggingFaceTB SmolLM-135M", check: false },
+        { model: "MaziyarPanahi BioMistral-7B-GGUF", check: false },
+        { model: "Meta-llama Llama-Guard-3-1B", check: false },
+        { model: "TinyLlama TinyLlama-1.1B-Chat-v1.0", check: false },
+        { model: "stanford-crfm music-large-800k", check: false },
+        { model: "xai-org grok-1", check: false },
+        { model: "AIDC-AI Ovis1.6-Gemma2-9B-GPTQ-Int4", check: false },
+        { model: "h2oai h2ovl-mississippi-2b", check: false },
         { model: "I don't use models", check: true },
     ]);
 

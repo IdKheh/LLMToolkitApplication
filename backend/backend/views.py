@@ -18,7 +18,7 @@ def send_some_data(request):
     methods = [method.strip() for method in methods if method.strip()]
 
     if not models:
-        return Response({"message": "Error: Empty modelsNLP"})
+        return Response({"error": "Error: Empty modelsNLP"})
 
     modelResultList = []
     for model in models:
