@@ -6,7 +6,11 @@ const STRINGS = {
     showErrorsText: "SHOW ERRORS",
     hideErrorsText: "HIDE ERRORS",
     spellCheckerName: "Spelling Checker",
-    spellCheckerValue: "Value is a number of words with spelling errors found in the given text."
+    spellCheckerValue: "Value is a number of words with spelling errors found in the given text.",
+    downloadPDF: "Download report in PDF format",
+    loadingPDFText: "Loading document...",
+    reportNamePDF: "LLM_output_grading_report.pdf",
+    PDFTitle: "LLM output grading report"
 };
 
 export default STRINGS;

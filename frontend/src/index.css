@@ -25,3 +25,22 @@ footer{
  	text-align: center;
  	padding: 10vh 0;
 }
+
+.submitButton{
+  border: solid 1px #036089;
+  width: 75%;
+  box-sizing:border-box;
+  text-align: center;
+  padding: 2vh 0;
+  margin-left: 12.5%;
+  color:#036089;
+  background-color: #fff;
+  margin-bottom: 2vh;
+  transition: 500ms;
+}
+
+.submitButton:hover{
+  color:#fff;
+  background-color: #036089;
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import './Report.css'
 import POSTaggingBarChart from './helpers/POSTaggingBarChart';
 import STRINGS from '../../Strings';
 import ErrorsList from './helpers/ErrorsList';
+import PDFDownloadComponent from './helpers/PDFDownloadComponent';
 
 const allMethods = [
     { method: "Automated Readability Index",
@@ -126,31 +127,34 @@ const Report = ({ resultRequest, clickToRequest }) => {
     return (
         <div>
             {resultRequest.length > 0 ? (
-                <ul id="report">
-                    {resultRequest.map((model, modelIndex) => (
-                        <li className="models" key={modelIndex}>
-                            <h3>{model.nameModel}</h3>
-                            <ul className="methods">
-                                {model.methodsResult.map((method, methodIndex) => (
-                                    <li className="method" key={methodIndex}>
-                                        <p className="nameMethod">
-                                            {method.nameMethod} <br></br>
-                                            {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName, STRINGS.spellCheckerName].includes(method.nameMethod) && (
-                                                <ErrorsList 
-                                                    errorsArray={method.nameMethod === STRINGS.spellCheckerName ? method.value : method.value[1]} 
-                                                    methodName={method.nameMethod}
-                                                />
-                                            )}
-                                        </p>
-                                        <div className="info-container">
-                                            {getDisplayedValue(method.value, method.nameMethod)}
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    ))}
-                </ul>
+                <div>
+                    <ul id="report">
+                        {resultRequest.map((model, modelIndex) => (
+                            <li className="models" key={modelIndex}>
+                                <h3>{model.nameModel}</h3>
+                                <ul className="methods">
+                                    {model.methodsResult.map((method, methodIndex) => (
+                                        <li className="method" key={methodIndex}>
+                                            <p className="nameMethod">
+                                                {method.nameMethod} <br></br>
+                                                {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName, STRINGS.spellCheckerName].includes(method.nameMethod) && (
+                                                    <ErrorsList 
+                                                        errorsArray={method.nameMethod === STRINGS.spellCheckerName ? method.value : method.value[1]} 
+                                                        methodName={method.nameMethod}
+                                                    />
+                                                )}
+                                            </p>
+                                            <div className="info-container">
+                                                {getDisplayedValue(method.value, method.nameMethod)}
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </li>
+                        ))}
+                    </ul>
+                    <PDFDownloadComponent result={resultRequest} />
+                </div>
             ) : (
                 <div className="loader-container">
                     <div className="bouncing-dots">
