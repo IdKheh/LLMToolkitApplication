@@ -1,5 +1,4 @@
 from backend.MethodsImport import MethodResult
-from backend.ModelsImport import modelCaller
 import requests
 import time
 from transformers import AutoModelForCausalLM, AutoTokenizer
