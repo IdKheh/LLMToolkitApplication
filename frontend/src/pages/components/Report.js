@@ -159,45 +159,6 @@ const Report = ({ resultRequest, clickToRequest , error}) => {
     </div>)
 
     if(!clickToRequest) return <p></p>
-    /*return (
-        <div>
-            {resultRequest.length > 0 ? (
-                <ul id="report">
-                    {resultRequest.map((model, modelIndex) => (
-                        <li className="models" key={modelIndex}>
-                            <h3>{model.nameModel}</h3>
-                            <ul className="methods">
-                                {model.methodsResult.map((method, methodIndex) => (
-                                    <li className="method" key={methodIndex}>
-                                        <p className="nameMethod">
-                                            {method.nameMethod} <br></br>
-                                            {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName, STRINGS.spellCheckerName].includes(method.nameMethod) && (
-                                                <ErrorsList 
-                                                    errorsArray={method.nameMethod === STRINGS.spellCheckerName ? method.value : method.value[1]} 
-                                                    methodName={method.nameMethod}
-                                                />
-                                            )}
-                                        </p>
-                                        <div className="info-container">
-                                            {getDisplayedValue(method.value, method.nameMethod)}
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <div className="loader-container">
-                    <div className="bouncing-dots">
-                        <div className="dot"></div>
-                        <div className="dot"></div>
-                        <div className="dot"></div>
-                    </div>
-                </div>
-            )}
-        </div>
-    );*/
 };
 
 export default Report;
