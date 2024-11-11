@@ -4,7 +4,6 @@ from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, g
 from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER, getGERIKorektor, checkSpelling
 
 
-
 class MethodResult:
     def __init__(self, name):
         self.__nameMethod = name

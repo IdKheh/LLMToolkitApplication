@@ -3,11 +3,13 @@ import axios from "axios";
 import './Form.css';
 import STRINGS from '../../Strings';
 
-const Form = ({ setResult, setClicked }) => {
+const Form = ({ setResult, setClicked, setError}) => {
+
     const [models, setModels] = useState([
-        { model: "Model 1", check: false },
-        { model: "Model 2", check: false },
-        { model: "Model 3", check: false },
+        { model: "GPT-2", check: false },
+        { model: "Llama-3.2-1B-Instruct", check: false },
+        { model: "Llama-3.2-3B-Instruct", check: false },
+        { model: "T5", check: false },
         { model: "I don't use models", check: true },
     ]);
 
@@ -31,15 +33,10 @@ const Form = ({ setResult, setClicked }) => {
         { method: STRINGS.spellCheckerName, check: false, group: "Grammar" },
 
 
-        { method: "method 5", check: false, group: "Semantic" },
-        { method: "method 6", check: false, group: "Semantic" },
-        { method: "method 7", check: false, group: "Semantic" },
-        { method: "method 8", check: false, group: "Semantic" },
-
-        { method: "method 9", check: false, group: "XXX" },
-        { method: "method 10", check: false, group: "XXX" },
-        { method: "method 11", check: false, group: "XXX" },
-        { method: "method 12", check: false, group: "XXX" }
+        { method: "method 5", check: false, group: "Translations" },
+        { method: "method 6", check: false, group: "Translations" },
+        { method: "method 7", check: false, group: "Translations" },
+        { method: "method 8", check: false, group: "Translations" }
     ]);
 
     const inputRef = useRef();
@@ -72,10 +69,21 @@ const Form = ({ setResult, setClicked }) => {
         const filteredMethods = methods.filter(item => item.check);
         const method = filteredMethods.map(item => item.method);
         setClicked(true);
+        setResult([]);
+        setError("");
 
         axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}`)
             .then(function (response) {
                 setResult(response.data.message);
+                setClicked(false);
+            })
+            .catch(error => {
+                if (error.response && error.response.data && error.response.data.error) {
+                    setError(error.response.data.error);
+                } else {
+                    setError("An unexpected error occurred.");
+                }
+                setClicked(false);
             });
     };
 
@@ -94,7 +102,7 @@ const Form = ({ setResult, setClicked }) => {
                                     checked={check}
                                     disabled={
                                         models[models.length - 1].check && i !== models.length - 1
-                                    } // Disable other models if "I don't use models" is checked
+                                    }
                                 />
                                 <span>{model}</span>
                             </label>
@@ -127,23 +135,11 @@ const Form = ({ setResult, setClicked }) => {
                     ))}
                 </div>
                 <div className='columns'>
-                    <p className='nameOfGroup'>Semantic</p>
-                    {methods.map(({ method, check, group }, i) => group === "Semantic" && (
+                    <p className='nameOfGroup'>Translations</p>
+                    {methods.map(({ method, check, group }, i) => group === "Translations" && (
                         <div key={i}>
                             <label htmlFor={`method-S-${i}`}>
                                 <input id={`method-S-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
-                                <span>{method}</span>
-                            </label>
-                        </div>
-                    ))}
-                </div>
-
-                <div className='columns'>
-                    <p className='nameOfGroup'>XXX</p>
-                    {methods.map(({ method, check, group }, i) => group === "XXX" && (
-                        <div key={i}>
-                            <label htmlFor={`method-X-${i}`}>
-                                <input id={`method-X-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
                                 <span>{method}</span>
                             </label>
                         </div>

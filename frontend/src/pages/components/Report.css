@@ -34,9 +34,8 @@
     color: #444;
 }
 
-/* Info Icon Styling */
 .info-container {
-    position: relative; /* Ensures popup is positioned relative to the icon */
+    position: relative; 
 }
 
 .info-icon {
@@ -49,8 +48,8 @@
 /* Informacy Popup */
 .informacy-popup {
     position: absolute;
-    top: 30px;
-    left: -50px; /* Adjust for better alignment */
+    bottom: 30px;
+    left: -50px; 
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -97,19 +96,11 @@
     color: #666;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+#error{
+    text-align: center;
+    font-size: 18px;
+    padding: 5vh 0%;
+}
 
 
 .loader-container {

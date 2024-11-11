@@ -1,5 +1,8 @@
 from backend.MethodsImport import MethodResult
 from backend.ModelsImport import modelCaller
+import requests
+import time
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class ModelResult:
@@ -7,23 +10,98 @@ class ModelResult:
         self.nameModel = name
         self.listOfMethods = []
         self.textThema = text
-        self.__response = "In a small, quiet village nestled between rolling hills and wildflower meadows, there lived a grandmother named Agatha, who everyone fondly called \"Granny A.\" Granny A had lived in the village for as long as anyone could remember. Her little cottage, with its ivy-covered walls and flower-filled windowsills, was always the most welcoming spot in the neighborhood. But it wasn’t the smell of her famous cinnamon buns or her colorful garden that made Granny A's home special. It was her six cats."
+        self.__response = ""
 
     def generateResponse(self):
-        self.__response = modelCaller(self.nameModel, self.textThema)
+        if self.nameModel == "I don't use models":
+            self.__response = self.textThema
+    
+        elif self.nameModel =="GPT-2":
+            tokenizer = AutoTokenizer.from_pretrained("gpt2")
+            model = AutoModelForCausalLM.from_pretrained("gpt2")
+            if tokenizer.pad_token is None:
+                tokenizer.pad_token = tokenizer.eos_token
+                
+            inputs = tokenizer(self.textThema, return_tensors="pt", padding=True)
+            output = model.generate(
+                inputs["input_ids"], 
+                attention_mask=inputs["attention_mask"],
+                pad_token_id=tokenizer.pad_token_id,
+                max_length=250,
+                temperature=0.7, 
+                top_p=0.9,
+                top_k=50,
+                repetition_penalty=1.2,
+                no_repeat_ngram_size=2,
+            )
+            self.__response = tokenizer.decode(output[0], skip_special_tokens=True)
+            
+        elif self.nameModel =="Llama-3.2-3B-Instruct":
+            self.__response = self.__requestServer("meta-llama/Llama-3.2-3B-Instruct")
+            
+        elif self.nameModel =="Llama-3.2-1B-Instruct":
+            self.__response = self.__requestServer("meta-llama/Llama-3.2-1B-Instruct")
+        
+        elif self.nameModel =="T5":
+            self.__response = self.__requestServer("google-t5/t5-base")                
+        else: 
+            raise Exception(f"Unsupported model '{self.nameModel}'")
+        
 
     def getResponse(self):
         return self.__response
+    
 
     def addMethod(self, methodResult: MethodResult):
         self.listOfMethods.append(methodResult)
+        
 
     def to_dict(self):
         return {
             "nameModel": self.nameModel,
             "methodsResult": [method.to_dict() for method in self.listOfMethods]
         }
+        
 
     def getResultsOfMethods(self):
         for method in self.listOfMethods:
             method.execute(self.__response)
+            
+            
+    def __requestServer(self,modelName):
+        API_URL = "https://api-inference.huggingface.co/models/"+modelName
+        headers = {
+                "Authorization": f"Bearer {self.__getToken()}",
+                "Content-Type": "application/json",
+                }
+        data = {
+                "inputs": self.textThema,
+                "parameters": {
+                    "max_new_tokens": 150,
+                    "temperature": 0.7,
+                    "top_p": 0.9,
+                    "top_k": 50,
+                    "repetition_penalty": 1.2,
+                }
+            }
+        for attempt in range(15):
+            try:
+                response = requests.post(API_URL, headers=headers, json=data)
+                result = response.json()
+                
+                if response.status_code == 503 and "estimated_time" in result:
+                    estimated_time = result.get("estimated_time", 10)
+                    print(f"Model is loading, retrying in {estimated_time} seconds... (Attempt {attempt+1}/15)")
+                    time.sleep(estimated_time+1)
+                else:
+                    text = result[0]['generated_text']
+                    return '\n'.join(text[1:])
+            except Exception as e:
+                raise Exception(f"Request failed: {e}")
+                
+        raise Exception(f"Max retries reached. Model could not load.")
+    
+    
+    def __getToken(self):
+        with open("secret.txt", "r") as file:
+            return file.readline().strip()
