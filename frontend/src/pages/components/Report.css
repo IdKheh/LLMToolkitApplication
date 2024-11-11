@@ -2,9 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 8vh 10%;
+    padding: 5vh 10%;
     list-style: none;
-    margin: 20px;
+    margin: 20px 20px 5px 20px;
     max-width: 100%;
 }
 

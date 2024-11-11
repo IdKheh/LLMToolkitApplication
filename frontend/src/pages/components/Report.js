@@ -3,6 +3,7 @@ import './Report.css'
 import POSTaggingBarChart from './helpers/POSTaggingBarChart';
 import STRINGS from '../../Strings';
 import ErrorsList from './helpers/ErrorsList';
+import PDFDownloadComponent from './helpers/PDFDownloadComponent';
 
 const allMethods = [
     { method: "Automated Readability Index",
@@ -123,6 +124,7 @@ const getDisplayedValue = (value, name) => {
 const Report = ({ resultRequest, clickToRequest , error}) => {
     if(!clickToRequest && error.length>0) return <p id='error'>{error}</p>
     if(!clickToRequest && resultRequest.length > 0) return (
+      <div>
         <ul id="report">
                     {resultRequest.map((model, modelIndex) => (
                         <li className="models" key={modelIndex}>
@@ -148,6 +150,8 @@ const Report = ({ resultRequest, clickToRequest , error}) => {
                         </li>
                     ))}
                 </ul>
+                <PDFDownloadComponent result={resultRequest} />
+              </div>
     )
 
     if(clickToRequest) return(<div className="loader-container">

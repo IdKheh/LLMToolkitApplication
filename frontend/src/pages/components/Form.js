@@ -147,7 +147,7 @@ const Form = ({ setResult, setClicked, setError}) => {
                 </div>
             </div>
             <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50}></textarea>
-            <button id='submitButton' onClick={() => sendRequest()}>Generate report</button>
+            <button className='submitButton' onClick={() => sendRequest()}>Generate report</button>
         </div>
     );
 };
