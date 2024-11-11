@@ -1,6 +1,7 @@
 from backend.MethodsImport import MethodResult
 import requests
 import time
+import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
@@ -102,5 +103,8 @@ class ModelResult:
     
     
     def __getToken(self):
-        with open("secret.txt", "r") as file:
-            return file.readline().strip()
+        if os.path.exists("secret.txt"):
+            with open("secret.txt", "r") as file:
+                return file.readline().strip()
+        else:
+            raise Exception("Access token to Hugging Face don't found. Please generate it and paste into secret.txt.")
