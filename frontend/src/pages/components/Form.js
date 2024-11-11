@@ -33,13 +33,14 @@ const Form = ({ setResult, setClicked }) => {
         { method: "method 7", check: false, group: "Semantic" },
         { method: "method 8", check: false, group: "Semantic" },
 
-        { method: "method 9", check: false, group: "XXX" },
-        { method: "method 10", check: false, group: "XXX" },
-        { method: "method 11", check: false, group: "XXX" },
-        { method: "method 12", check: false, group: "XXX" }
+        { method: "BLEU", check: false, group: "Translation" },
+        { method: "method 10", check: false, group: "Translation" },
+        { method: "method 11", check: false, group: "Translation" }
     ]);
 
     const inputRef = useRef();
+    const inputReferenceTranslation = useRef();
+    const [shwoTranslation, setTranslation] = useState(false);
 
     const handleChangeModels = (check, i) => {
         let modelsClone = [...models];
@@ -136,18 +137,33 @@ const Form = ({ setResult, setClicked }) => {
                 </div>
 
                 <div className='columns'>
-                    <p className='nameOfGroup'>XXX</p>
-                    {methods.map(({ method, check, group }, i) => group === "XXX" && (
+                    <p className='nameOfGroup'>Translation</p>
+                    {methods.map(({ method, check, group }, i) => group === "Translation" && (
                         <div key={i}>
                             <label htmlFor={`method-X-${i}`}>
-                                <input id={`method-X-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
+                                <input id={`method-X-${i}`} 
+                                type="checkbox" 
+                                onChange={() => handleChangeMethods(check, i)} 
+                                checked={check}/>
                                 <span>{method}</span>
                             </label>
                         </div>
                     ))}
                 </div>
             </div>
-            <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50}></textarea>
+            <div className='inputs'>
+                <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50}></textarea>
+                {shwoTranslation && 
+                    <textarea 
+                        id='translation' 
+                        ref={inputReferenceTranslation} 
+                        placeholder='Write translation there...' 
+                        rows={5} cols={50} 
+                        style={{}}
+                    ></textarea>
+                }
+            </div>
+            
             <button id='submitButton' onClick={() => sendRequest()}>Generate report</button>
         </div>
     );
