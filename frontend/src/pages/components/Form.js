@@ -6,14 +6,10 @@ import STRINGS from '../../Strings';
 const Form = ({ setResult, setClicked, setError}) => {
 
     const [models, setModels] = useState([
-        { model: "HuggingFaceTB SmolLM-135M", check: false },
-        { model: "MaziyarPanahi BioMistral-7B-GGUF", check: false },
-        { model: "Meta-llama Llama-Guard-3-1B", check: false },
-        { model: "TinyLlama TinyLlama-1.1B-Chat-v1.0", check: false },
-        { model: "stanford-crfm music-large-800k", check: false },
-        { model: "xai-org grok-1", check: false },
-        { model: "AIDC-AI Ovis1.6-Gemma2-9B-GPTQ-Int4", check: false },
-        { model: "h2oai h2ovl-mississippi-2b", check: false },
+        { model: "GPT-2", check: false },
+        { model: "Llama-3.2-1B-Instruct", check: false },
+        { model: "Llama-3.2-3B-Instruct", check: false },
+        { model: "T5", check: false },
         { model: "I don't use models", check: true },
     ]);
 
@@ -37,15 +33,10 @@ const Form = ({ setResult, setClicked, setError}) => {
         { method: STRINGS.spellCheckerName, check: false, group: "Grammar" },
 
 
-        { method: "method 5", check: false, group: "Semantic" },
-        { method: "method 6", check: false, group: "Semantic" },
-        { method: "method 7", check: false, group: "Semantic" },
-        { method: "method 8", check: false, group: "Semantic" },
-
-        { method: "method 9", check: false, group: "XXX" },
-        { method: "method 10", check: false, group: "XXX" },
-        { method: "method 11", check: false, group: "XXX" },
-        { method: "method 12", check: false, group: "XXX" }
+        { method: "method 5", check: false, group: "Translations" },
+        { method: "method 6", check: false, group: "Translations" },
+        { method: "method 7", check: false, group: "Translations" },
+        { method: "method 8", check: false, group: "Translations" }
     ]);
 
     const inputRef = useRef();
@@ -144,23 +135,11 @@ const Form = ({ setResult, setClicked, setError}) => {
                     ))}
                 </div>
                 <div className='columns'>
-                    <p className='nameOfGroup'>Semantic</p>
-                    {methods.map(({ method, check, group }, i) => group === "Semantic" && (
+                    <p className='nameOfGroup'>Translations</p>
+                    {methods.map(({ method, check, group }, i) => group === "Translations" && (
                         <div key={i}>
                             <label htmlFor={`method-S-${i}`}>
                                 <input id={`method-S-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
-                                <span>{method}</span>
-                            </label>
-                        </div>
-                    ))}
-                </div>
-
-                <div className='columns'>
-                    <p className='nameOfGroup'>XXX</p>
-                    {methods.map(({ method, check, group }, i) => group === "XXX" && (
-                        <div key={i}>
-                            <label htmlFor={`method-X-${i}`}>
-                                <input id={`method-X-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
                                 <span>{method}</span>
                             </label>
                         </div>

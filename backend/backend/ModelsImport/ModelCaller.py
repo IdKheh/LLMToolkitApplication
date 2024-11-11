@@ -1,68 +1,116 @@
 import requests
 import time
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
-def requestServer(API_URL,headers,input):
-    max_retries = 15
-    retry_delay = 10  # seconds
-    for attempt in range(max_retries):
-        response = requests.post(API_URL, headers=headers, json={"inputs": input})
-        result = response.json()
-        if response.status_code == 503 and "estimated_time" in result:
-            print(f"Model is loading, retrying in {retry_delay} seconds...")
-            time.sleep(retry_delay)
-        else:
-            return result
+def requestServer(API_URL, headers, input):
+    for attempt in range(15):
+        try:
+            response = requests.post(API_URL, headers=headers, json=input)
+            result = response.json()
             
+            if response.status_code == 503 and "estimated_time" in result:
+                estimated_time = result.get("estimated_time", 10)
+                print(f"Model is loading, retrying in {estimated_time} seconds... (Attempt {attempt+1}/15)")
+                time.sleep(estimated_time+1)
+            else:
+                return result
+        except Exception as e:
+            raise Exception(f"Request failed: {e}")
             
+    raise Exception(f"Max retries reached. Model could not load.")
+
+            
+def getToken():
+    with open("secret.txt", "r") as file:
+        return file.readline().strip()
+    
+    
+    
 def modelCaller(modelName: str, thema: str):
-    headers = {"Authorization": f"Bearer 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"}
     if modelName == "I don't use models":
         return thema
     
-    elif modelName =="HuggingFaceTB SmolLM-135M":
-        API_URL = "https://api-inference.huggingface.co/models/HuggingFaceTB/SmolLM-135M"
-        print(requestServer(API_URL,headers,thema))
+    elif modelName =="GPT-2":
+        tokenizer = AutoTokenizer.from_pretrained("gpt2")
+        model = AutoModelForCausalLM.from_pretrained("gpt2")
+        if tokenizer.pad_token is None:
+            tokenizer.pad_token = tokenizer.eos_token
+            
+        inputs = tokenizer(thema, return_tensors="pt", padding=True)
+        output = model.generate(
+            inputs["input_ids"], 
+            attention_mask=inputs["attention_mask"],
+            pad_token_id=tokenizer.pad_token_id,
+            max_length=250,
+            temperature=0.7, 
+            top_p=0.9,
+            top_k=50,
+            repetition_penalty=1.2,
+            no_repeat_ngram_size=2,
+        )
+        output = tokenizer.decode(output[0], skip_special_tokens=True)
+        print(output)
+        return output
         
-    elif modelName =="MaziyarPanahi BioMistral-7B-GGUF":
-        API_URL = "https://api-inference.huggingface.co/models/MaziyarPanahi/BioMistral-7B-GGUF"
-        print(requestServer(API_URL,headers,thema))
-        
-    elif modelName =="Meta-llama Llama-Guard-3-1B": # potrzebuje więcej czasu
-        API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-Guard-3-1B"
-        print(requestServer(API_URL,headers,thema))
-        
-    elif modelName =="TinyLlama TinyLlama-1.1B-Chat-v1.0":
-        API_URL = "https://api-inference.huggingface.co/models/TinyLlama/TinyLlama-1.1B-Chat-v1.0"
-        print(requestServer(API_URL,headers,thema))
-        
-    elif modelName =="stanford-crfm music-large-800k": # potrzebuje więcej czasu
-        API_URL = "https://api-inference.huggingface.co/models/stanford-crfm/music-large-800k"
-        print(requestServer(API_URL,headers,thema))
-        
-    elif modelName =="xai-org grok-1":
-        API_URL = "https://api-inference.huggingface.co/models/xai-org/grok-1"
-        print(requestServer(API_URL,headers,thema))
+    elif modelName =="Llama-3.2-3B-Instruct":
+        API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct"
+        headers = {"Authorization": f"Bearer {getToken()}"}
 
+        data = {
+            "inputs": thema,
+            "parameters": {
+                "max_new_tokens": 150,
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "top_k": 50,
+                "repetition_penalty": 1.2,
+            }
+        }
+        output = requestServer(API_URL,headers,data)
+        print(output)
+        return output    
+           
+    elif modelName =="Llama-3.2-1B-Instruct":
+        API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-1B-Instruct"
+        headers = {
+            "Authorization": f"Bearer {getToken()}",
+            "Content-Type": "application/json",
+            }
         
-    elif modelName =="AIDC-AI Ovis1.6-Gemma2-9B-GPTQ-Int4": # potrzebuje więcej czasu
-        API_URL = "https://api-inference.huggingface.co/models/AIDC-AI/Ovis1.6-Gemma2-9B-GPTQ-Int4"
-        print(requestServer(API_URL,headers,thema))
-        
-    elif modelName =="h2oai h2ovl-mississippi-2b":
-        API_URL = "https://api-inference.huggingface.co/models/h2oai/h2ovl-mississippi-2b"
-        print(requestServer(API_URL,headers,thema))        
+
+        data = {
+            "inputs": thema,
+            "parameters": {
+                "max_new_tokens": 150,
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "top_k": 50,
+                "repetition_penalty": 1.2,
+            }
+        }
+        output = requestServer(API_URL,headers,data)
+        print(output)
+        return output
+
+    
+    elif modelName =="T5":
+        API_URL = "https://api-inference.huggingface.co/models/google-t5/t5-base"
+        headers = {"Authorization": f"Bearer {getToken()}"}
+
+        data = {
+            "inputs": thema,
+            "parameters": {
+                "max_new_tokens": 150,
+                "temperature": 0.7,
+                "top_p": 0.9,
+                "top_k": 50,
+                "repetition_penalty": 1.2,
+            }
+        }
+        output = requestServer(API_URL,headers,data)
+        print(output)
+        return output
+              
     else: 
         raise Exception(f"Unsupported model '{modelName}'")
-        
-    
-    return '''"Childhood is a magical time filled with wonder, curiosity, and endless imagination. It’s the stage of "
-            "life where every day feels like a new adventure, and the simplest things—like chasing butterflies or "
-            "building forts—can bring immense joy. Friendships formed during childhood are often pure and carefree, "
-            "bound by shared laughter and playful moments. It's a time of learning, not just through books, "
-            "but through experiences like climbing trees, riding bikes, or asking countless questions about the "
-            "world. Childhood is also when we start to form our first dreams, with imaginations running wild, "
-            "envisioning all that we might one day become. The innocence of childhood allows us to see the world "
-            "through a lens of possibility, before the weight of responsibilities and challenges of adulthood set "
-            "in. These early years shape who we are, laying the foundation for the adults we’ll eventually grow "
-            "into."'''
