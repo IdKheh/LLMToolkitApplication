@@ -71,7 +71,8 @@ const allMethods = [
     { method: "Sprache Formula Revised", information: [{values:"Value is class"}]},
     { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERValue}]},
     { method: STRINGS.GERIKorektorName, information: [{values: STRINGS.GERValue}]},
-    { method: STRINGS.spellCheckerName, information: [{values: STRINGS.spellCheckerValue}]}
+    { method: STRINGS.spellCheckerName, information: [{values: STRINGS.spellCheckerValue}]},
+    { method: STRINGS.languageDetectionName, information: [{values: STRINGS.languageDetectionValue}]}
 ];
 
 const getInformacyDetails = (methodName) => {
@@ -108,6 +109,15 @@ const getDisplayedValue = (value, name) => {
     }
     if (name === STRINGS.spellCheckerName) {
         value = Object.keys(value).length;
+    }
+    if (name === STRINGS.languageDetectionName) {
+        var displayedValue = "";
+        for (var i=0; i < value.length; i++) {
+            displayedValue += value[i].language;
+            displayedValue += ": " + Math.round(value[i].confidence * 100) + "%";
+            displayedValue += "; ";
+        }
+        value = displayedValue;
     }
     
     return (

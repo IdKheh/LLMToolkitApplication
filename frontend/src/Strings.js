@@ -10,7 +10,9 @@ const STRINGS = {
     downloadPDF: "Download report in PDF format",
     loadingPDFText: "Loading document...",
     reportNamePDF: "LLM_output_grading_report.pdf",
-    PDFTitle: "LLM output grading report"
+    PDFTitle: "LLM output grading report",
+    languageDetectionName: "Language Detection",
+    languageDetectionValue: "Top 3 detected languages and confidence for the given text.",
 };
 
 export default STRINGS;
