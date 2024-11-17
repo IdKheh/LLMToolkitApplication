@@ -24,9 +24,9 @@ const About = () => {
 					<div className='name'>Dawid Drożdżyński</div>
 					<div className='things'>
 							<ul>
-								<li>xxxx</li>
-								<li>xxxx</li>
-								<li>xxxx</li>
+								<li>Implementation of checking grammar and spelling methods in the library</li>
+								<li>Implementation of downloading report in PDF format on frontend</li>
+								<li>Contributing in building frontend and backend features</li>
 							</ul>
 					</div>
 				</div>
