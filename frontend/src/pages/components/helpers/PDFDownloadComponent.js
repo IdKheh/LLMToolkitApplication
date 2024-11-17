@@ -43,6 +43,15 @@ const getDisplayedValue = (value, name) => {
   if (name === STRINGS.spellCheckerName) {
       value = Object.keys(value).length;
   }
+  if (name === STRINGS.languageDetectionName) {
+      var displayedValue = "";
+      for (var i=0; i < value.length; i++) {
+          displayedValue += "\n";
+          displayedValue += value[i].language;
+          displayedValue += ": " + Math.round(value[i].confidence * 100) + "%";
+      }
+      value = displayedValue;
+  }
   
   return (
       <>
