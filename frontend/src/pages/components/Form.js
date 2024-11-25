@@ -34,13 +34,13 @@ const Form = ({ setResult, setClicked }) => {
         { method: "method 8", check: false, group: "Semantic" },
 
         { method: "BLEU", check: false, group: "Translation" },
-        { method: "Rogue", check: false, group: "Translation" },
+        { method: "method 10", check: false, group: "Translation" },
         { method: "method 11", check: false, group: "Translation" }
     ]);
 
     const inputRef = useRef();
     const inputReferenceTranslation = useRef();
-    const [showTranslation, setTranslation] = useState(false);
+    const [shwoTranslation, setTranslation] = useState(false);
 
     const handleChangeModels = (check, i) => {
         let modelsClone = [...models];
@@ -61,6 +61,7 @@ const Form = ({ setResult, setClicked }) => {
         tmp.check = !check;
         let methodsClone = [...methods];
         methodsClone[i] = tmp;
+
         if (tmp.group === "Translation" && tmp.check) {
             setTranslation(true);
         }
@@ -159,7 +160,7 @@ const Form = ({ setResult, setClicked }) => {
             </div>
             <div className='inputs'>
                 <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50}></textarea>
-                {showTranslation && 
+                {shwoTranslation && 
                     <textarea 
                         id='translation' 
                         ref={inputReferenceTranslation} 
