@@ -61,6 +61,13 @@ const Form = ({ setResult, setClicked }) => {
         tmp.check = !check;
         let methodsClone = [...methods];
         methodsClone[i] = tmp;
+
+        if (tmp.group === "Translation" && tmp.check) {
+            setTranslation(true);
+        }
+        else if (tmp.group === "Translation" && methodsClone.filter(item => item.group === "Translation").every(item => !item.check)) {
+            setTranslation(false);
+        }
         setMethods([...methodsClone]);
     };
 
