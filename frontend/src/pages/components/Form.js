@@ -34,8 +34,8 @@ const Form = ({ setResult, setClicked }) => {
         { method: "method 8", check: false, group: "Semantic" },
 
         { method: "BLEU", check: false, group: "Translation" },
-        { method: "method 10", check: false, group: "Translation" },
-        { method: "method 11", check: false, group: "Translation" }
+        { method: "ROGUE", check: false, group: "Translation" },
+        { method: "METEOR", check: false, group: "Translation" }
     ]);
 
     const inputRef = useRef();
@@ -76,12 +76,16 @@ const Form = ({ setResult, setClicked }) => {
         const model = filteredModels.map(item => item.model);
         const filteredMethods = methods.filter(item => item.check);
         const method = filteredMethods.map(item => item.method);
-        setClicked(true);
-
-        axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}`)
-            .then(function (response) {
-                setResult(response.data.message);
-            });
+        if (filteredMethods.length != 0|| filteredModels.length != 0 || inputRef.current.value !== '') {
+            setClicked(true);
+            axios.get(`http://127.0.0.1:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
+                .then(function (response) {
+                    console.log(response);
+                    setResult(response.data.message);
+                }).catch(function (error, response){
+                    console.log(response);
+                });
+        }
     };
 
     return (

@@ -52,7 +52,16 @@ class MethodResult:
                 self.__value = getPartOfSpeechTagging(text)
             case 'Grammatical Error Rate using LanguageTool':
                 self.__value = getGER(text)
+
+            
+            # Translation
+            case 'BLEU':
+                pass
+            case 'ROUGE':
+                pass
+            case 'METEOR':
+                pass
+
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")
-
         return self.__value
