@@ -13,12 +13,19 @@ def send_some_data(request):
     models = request.GET.get('modelsNLP', '').strip('[]').split(',')
     methods = request.GET.get('methods', '').strip('[]').split(',')
     textThema = request.GET.get('textThema', '')
+    textTranslation = request.GET.get('textTranslation', '')
+    print(textTranslation)
+
 
     models = [model.strip() for model in models if model.strip()]
     methods = [method.strip() for method in methods if method.strip()]
 
     if not models:
-        return Response({"message": "Error: Empty modelsNLP"})
+        return Response({"message": "Error: Empty modelsNLP"}, status=400)
+    if not methods:
+        return Response({"message": "Error: Empty methods"}, status=400)
+    if not textThema:
+        return Response({"message": "Error: Empty textThema"}, status=400)
 
     modelResultList = []
     for model in models:
