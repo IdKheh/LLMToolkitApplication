@@ -139,6 +139,7 @@ const Report = ({ resultRequest, clickToRequest , error}) => {
                     {resultRequest.map((model, modelIndex) => (
                         <li className="models" key={modelIndex}>
                             <h3>{model.nameModel}</h3>
+                            <p className='output-model'>{model.modelResponse}</p>
                             <ul className="methods">
                                 {model.methodsResult.map((method, methodIndex) => (
                                     <li className="method" key={methodIndex}>

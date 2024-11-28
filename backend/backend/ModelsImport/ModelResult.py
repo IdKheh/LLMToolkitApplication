@@ -59,6 +59,7 @@ class ModelResult:
     def to_dict(self):
         return {
             "nameModel": self.nameModel,
+            "modelResponse": self.getResponse(),
             "methodsResult": [method.to_dict() for method in self.listOfMethods]
         }
         
