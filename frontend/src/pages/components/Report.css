@@ -16,6 +16,10 @@
     box-sizing: border-box;
 }
 
+.output-model{
+    text-align: justify;
+}
+
 .methods {
     list-style-type: none;
     padding: 0;
