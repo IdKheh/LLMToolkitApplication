@@ -79,7 +79,7 @@ const Form = ({ setResult, setClicked, setError}) => {
         const method = filteredMethods.map(item => item.method);
         if (filteredMethods.length != 0|| filteredModels.length != 0 || inputRef.current.value !== '') {
             setClicked(true);
-            axios.get(`http://127.0.0.1:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
+            axios.get(`http://127.0.0.1:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}`) //&textTranslation=${inputReferenceTranslation.current.value}
                 .then(function (response) {
                     console.log(response);
                     setResult(response.data.message);

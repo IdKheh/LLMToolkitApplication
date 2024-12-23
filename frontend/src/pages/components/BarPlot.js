@@ -15,7 +15,7 @@ export const BarChart = ({ chartData, title }) => {
         data={chartData}
         options={{
           responsive: true,
-          maintainAspectRatio: false,
+          maintainAspectRatio: true,
           plugins: {
             title: {
               display: true,

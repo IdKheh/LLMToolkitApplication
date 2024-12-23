@@ -6,11 +6,9 @@ import axios from 'axios';
 import PdfFile from './components/StatsPdfFile';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import {toPng} from 'html-to-image';
 import $ from 'jquery';
 import 'jquery-ui-dist/jquery-ui'
 import 'jquery-ui-dist/jquery-ui.css';
-import html2canvas from 'html2canvas';
 
 const Statistic = () => {
 	const [modelName,setModelName] = useState('')

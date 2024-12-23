@@ -2,7 +2,7 @@ from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, g
     fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
     spracheRevisedFormula
 from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER, getGERIKorektor, checkSpelling, getLanguageConfidenceValue
-from LLMToolkit.Translation import  calculate_bleu, calculate_meteor, calculate_rogue
+# from LLMToolkit.Translation import  Bleu, Meteor, Rogue
 
 class MethodResult:
     def __init__(self, name):
@@ -54,13 +54,13 @@ class MethodResult:
                 self.__value = getGER(text)
 
             
-            # Translation
-            case 'BLEU':
-                self.__value = calculate_bleu(reference, text)
-            case 'ROUGE':
-                self.__value = calculate_rogue(reference, text)
-            case 'METEOR':
-                self.__value = calculate_meteor(reference, text)
+            # # Translation
+            # case 'BLEU':
+            #     self.__value = Bleu(reference, text)
+            # case 'ROUGE':
+            #     self.__value = Rogue(reference, text)
+            # case 'METEOR':
+            #     self.__value = Meteor(reference, text)
 
             case 'Grammar check using IKorektor':
                 self.__value = getGERIKorektor(text)
