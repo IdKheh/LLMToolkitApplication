@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from backend.MethodsImport import MethodResult
 from backend.ModelsImport import ModelResult
+from backend.ModelStats import ModelStats
 
 
 # to test communicate with rest:
@@ -48,3 +49,42 @@ def send_some_data(request):
             return Response({"error": str(err)}, status=400)
 
     return Response({"message": responseData})
+
+@api_view(['GET'])
+def get_model_data(request):
+    model_name = request.GET.get('modelName', '')
+    benchmarks = ["IFEval","BBH","MATH Lvl 5","GPQA","MUSR","MMLU-PRO"]
+    result = []
+    if not model_name:
+        return Response({"error": "Model name is required"}, status=400)
+    try:
+        model_stats = ModelStats(modelName=model_name)
+        result = {
+            "modelCardData": model_stats.modelCardData,
+            "top10Data": model_stats.top10Data,
+            "similarPerformance": model_stats.similarPerformance,
+            "sameFamily": model_stats.sameFamily,
+            "modelRow" : model_stats.modelRow
+        }
+        # result.append(model_stats.top10BBH)
+        # result.append(model_stats.top10GPQA)
+        # result.append(model_stats.top10Math)
+        # result.append(model_stats.top10Mmlu)
+        # result.append(model_stats.top10Musr)
+        # result.append(model_stats.top10IFEval)
+        return Response({"message": result})
+    except Exception as e:
+        return Response({"error":str(e)},status=400)
+    
+@api_view(['GET'])
+def get_models_list(request):
+    model_name = "openai-community/gpt2"
+    result = []
+    try: 
+        model_stats = ModelStats(modelName=model_name)
+        result = {
+            "modelsList":model_stats.modelsList
+        }
+        return Response({"message": result})
+    except Exception as e:
+        return Response({"error":str(e)},status=400)

@@ -1,4 +1,4 @@
-#!/bin/bash
+./start#!/bin/bash
 
 docker-compose down --rmi all
 docker-compose build --no-cache

@@ -1,6 +1,121 @@
-#todo{
+#content{
+    margin-top: 5vh;
+}
+#thema{
+    width: 75%;
+    box-sizing:border-box;
+    height: max(20vh,250px);
+    resize: none;
+    border: solid 1px #036089;
+    margin-left: 12.5%;
+    padding: 10px;
+    margin-bottom: 2vh;
+}
+
+#modelSelectText{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #036089;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing:border-box;
+  margin: 2vh;
+}
+.modelInput{
+    border: solid 1px #036089;
+    width: 75%;
+    box-sizing:border-box;
     text-align: center;
+    padding: 2vh 0;
+    color:#036089;
+    background-color: #fff;
+    margin-left: 12.5%;
+    margin-bottom: 2vh;
+  }
+  .modelInput:focus{
+    outline: #034b6a;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+
+  .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
 }
-#containerNoPage{
-    min-height: 80vh;
+
+.bouncing-dots {
+    display: flex;
+    justify-content: space-between;
+    width: 60px;
 }
+
+.dot {
+    width: 15px;
+    height: 15px;
+    background-color: #036089;
+    border-radius: 50%;
+    animation: bounce 2.5s infinite;
+}
+
+.dot:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+.error{
+    border: solid 1px #036089;
+    width: 75%;
+    box-sizing:border-box;
+    text-align: center;
+    padding: 2vh 0;
+    color:#fff;
+    background-color: #e60b0b;
+    margin-left: 12.5%;
+    margin-bottom: 2vh;
+}
+#container{
+    min-height: 49.3vh;
+}
+
+  .ui-autocomplete {
+    box-sizing: border-box;
+    width:73.4% !important;
+    margin-left: 12.5%;
+    padding: 2vh 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    z-index: 1000; 
+  }
+  
+  .ui-menu-item {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .ui-menu-item:hover {
+    background-color: #f0f0f0;
+  }
