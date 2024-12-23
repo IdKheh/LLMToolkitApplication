@@ -16,6 +16,7 @@ def send_some_data(request):
     textTranslation = request.GET.get('textTranslation', '')
     print(textTranslation)
 
+    translation_models = ['BLEU','ROGUE','METEOR']
 
     models = [model.strip() for model in models if model.strip()]
     methods = [method.strip() for method in methods if method.strip()]
@@ -29,7 +30,11 @@ def send_some_data(request):
 
     modelResultList = []
     for model in models:
-        modelResult = ModelResult(name=model, text=textThema)
+        
+        if model in translation_models:
+            return Response({"message": "Error: Empty textTranslation"}, status=400)
+        
+        modelResult = ModelResult(name=model, text=textThema, reference=textTranslation)
         modelResult.generateResponse()
         for method in methods:
             modelResult.listOfMethods.append(MethodResult(name=method))

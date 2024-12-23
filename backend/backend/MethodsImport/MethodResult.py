@@ -1,6 +1,6 @@
 from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, gradeLevelFleschKincaid, forcast, \
     fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
-    spracheRevisedFormula
+    spracheRevisedFormula, calculate_bleu, calculate_meteor, calculate_rogue
 from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER
 
 
@@ -15,7 +15,7 @@ class MethodResult:
             "value": self.__value
         }
 
-    def execute(self, text):
+    def execute(self, text, reference):
         match self.__nameMethod:
             # Proficiency
             case 'Automated Readability Index':
@@ -56,11 +56,11 @@ class MethodResult:
             
             # Translation
             case 'BLEU':
-                pass
+                self.__value = calculate_bleu(reference, text)
             case 'ROUGE':
-                pass
+                self.__value = calculate_rogue(reference, text)
             case 'METEOR':
-                pass
+                self.__value = calculate_meteor(reference, text)
 
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")
