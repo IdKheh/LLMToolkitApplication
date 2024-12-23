@@ -14,6 +14,10 @@ def send_some_data(request):
     models = request.GET.get('modelsNLP', '').strip('[]').split(',')
     methods = request.GET.get('methods', '').strip('[]').split(',')
     textThema = request.GET.get('textThema', '')
+    textTranslation = request.GET.get('textTranslation', '')
+    print(textTranslation)
+
+    translation_models = ['BLEU','ROGUE','METEOR']
 
     models = [model.strip() for model in models if model.strip()]
     methods = [method.strip() for method in methods if method.strip()]
@@ -29,8 +33,12 @@ def send_some_data(request):
 
     modelResultList = []
     for model in models:
+        
+        if model in translation_models:
+            return Response({"message": "Error: Empty textTranslation"}, status=400)
+        
         try:
-            modelResult = ModelResult(name=model, text=textThema)
+            modelResult = ModelResult(name=model, text=textThema, reference=textTranslation)
             modelResult.generateResponse()
             for method in methods:
                 modelResult.listOfMethods.append(MethodResult(name=method))

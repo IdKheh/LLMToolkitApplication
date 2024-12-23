@@ -34,13 +34,14 @@ const Form = ({ setResult, setClicked, setError}) => {
         { method: STRINGS.languageDetectionName, check: false, group: "Grammar" },
 
 
-        { method: "method 5", check: false, group: "Translations" },
-        { method: "method 6", check: false, group: "Translations" },
-        { method: "method 7", check: false, group: "Translations" },
-        { method: "method 8", check: false, group: "Translations" }
+        { method: "BLEU", check: false, group: "Translation" },
+        { method: "ROGUE", check: false, group: "Translation" },
+        { method: "METEOR", check: false, group: "Translation" }
     ]);
 
     const inputRef = useRef();
+    const inputReferenceTranslation = useRef();
+    const [shwoTranslation, setTranslation] = useState(false);
 
     const handleChangeModels = (check, i) => {
         let modelsClone = [...models];
@@ -61,6 +62,13 @@ const Form = ({ setResult, setClicked, setError}) => {
         tmp.check = !check;
         let methodsClone = [...methods];
         methodsClone[i] = tmp;
+
+        if (tmp.group === "Translation" && tmp.check) {
+            setTranslation(true);
+        }
+        else if (tmp.group === "Translation" && methodsClone.filter(item => item.group === "Translation").every(item => !item.check)) {
+            setTranslation(false);
+        }
         setMethods([...methodsClone]);
     };
 
@@ -69,23 +77,16 @@ const Form = ({ setResult, setClicked, setError}) => {
         const model = filteredModels.map(item => item.model);
         const filteredMethods = methods.filter(item => item.check);
         const method = filteredMethods.map(item => item.method);
-        setClicked(true);
-        setResult([]);
-        setError("");
-
-        axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}`)
-            .then(function (response) {
-                setResult(response.data.message);
-                setClicked(false);
-            })
-            .catch(error => {
-                if (error.response && error.response.data && error.response.data.error) {
-                    setError(error.response.data.error);
-                } else {
-                    setError("An unexpected error occurred.");
-                }
-                setClicked(false);
-            });
+        if (filteredMethods.length != 0|| filteredModels.length != 0 || inputRef.current.value !== '') {
+            setClicked(true);
+            axios.get(`http://127.0.0.1:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
+                .then(function (response) {
+                    console.log(response);
+                    setResult(response.data.message);
+                }).catch(function (error, response){
+                    console.log(response);
+                });
+        }
     };
 
     return (
@@ -146,9 +147,36 @@ const Form = ({ setResult, setClicked, setError}) => {
                         </div>
                     ))}
                 </div>
+
+                <div className='columns'>
+                    <p className='nameOfGroup'>Translation</p>
+                    {methods.map(({ method, check, group }, i) => group === "Translation" && (
+                        <div key={i}>
+                            <label htmlFor={`method-X-${i}`}>
+                                <input id={`method-X-${i}`} 
+                                type="checkbox" 
+                                onChange={() => handleChangeMethods(check, i)} 
+                                checked={check}/>
+                                <span>{method}</span>
+                            </label>
+                        </div>
+                    ))}
+                </div>
             </div>
-            <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50} spellCheck={false}></textarea>
-            <button className='submitButton' onClick={() => sendRequest()}>Generate report</button>
+            <div className='inputs'>
+                <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50}></textarea>
+                {shwoTranslation && 
+                    <textarea 
+                        id='translation' 
+                        ref={inputReferenceTranslation} 
+                        placeholder='Write translation there...' 
+                        rows={5} cols={50} 
+                        style={{}}
+                    ></textarea>
+                }
+            </div>
+            
+            <button id='submitButton' onClick={() => sendRequest()}>Generate report</button>
         </div>
     );
 };
