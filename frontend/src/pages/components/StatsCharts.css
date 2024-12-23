@@ -1,0 +1,101 @@
+#content{
+    margin-top: 5vh;
+}
+
+#thema{
+    width: 75%;
+    box-sizing:border-box;
+    height: max(20vh,250px);
+    resize: none;
+    border: solid 1px #036089;
+    margin-left: 12.5%;
+    padding: 10px;
+    margin-bottom: 2vh;
+}
+
+.card{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing:border-box;
+    position:relative;
+    border: solid 1px #036089;
+    width: 75%;
+    margin-left: 12.5%;
+    padding: 25px 25px;
+    margin-bottom: 2vh;
+    transition-duration: 500ms;
+}
+.card>.nameCard{
+    position:absolute;
+    top:-25px; left: 4%;
+    padding: 0 1.5%;
+    background-color: #fff;
+    text-align: center;
+}
+.chartBox{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    column-gap: 50px;
+    row-gap: 50px;
+    padding: 0 1.5%;
+    min-width: 90%;
+    min-height: 100%;
+}
+.radarBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.expandArrow{
+    color: #036089;
+    transition: transform 0.3s ease-in-out;
+    position: absolute; 
+    bottom: 1vh; 
+    left: 50%; 
+    margin-top: 15px;
+}
+.expandArrow:hover{
+    color: #023348;
+    cursor: pointer;
+}
+ul{
+    list-style: none;
+}
+
+.bolded{
+    font-weight: bold;
+    color: #036089;
+}
+.benchmarkDesc{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: first baseline;
+}
+.benchmarkDesc p {
+    margin: 3px;
+}
+
+.barPlotBox{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+    align-items: center;
+}
+.noFamily{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #036089;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  box-sizing:border-box;
+  margin: 2vh;
+}

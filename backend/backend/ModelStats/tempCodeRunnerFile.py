@@ -1,0 +1,1 @@
+model_stats = ModelStats(modelName="3rd-Degree-Burn/Llama-3.1-8B-Squareroot-v0")
