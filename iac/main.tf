@@ -89,8 +89,10 @@ resource "aws_instance" "web" {
 
             # Build and run containers
             cd /data/app
-            git checkout ModelReport 
+            git checkout feature-translation-evaluation
             chmod +x start.sh
+            sudo systemctl restart docker
+            docker system prune -a
             ./start.sh
             EOF
 

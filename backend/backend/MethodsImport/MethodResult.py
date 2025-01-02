@@ -1,9 +1,8 @@
 from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, gradeLevelFleschKincaid, forcast, \
     fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
-    spracheRevisedFormula, calculate_bleu, calculate_meteor, calculate_rogue
+    spracheRevisedFormula
 from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER
-
-
+from LLMToolkit.Translation import  Bleu, Meteor, Rogue
 class MethodResult:
     def __init__(self, name):
         self.__nameMethod = name
@@ -56,11 +55,11 @@ class MethodResult:
             
             # Translation
             case 'BLEU':
-                self.__value = calculate_bleu(reference, text)
+                self.__value = Bleu(reference, text)
             case 'ROUGE':
-                self.__value = calculate_rogue(reference, text)
+                self.__value = Rogue(reference, text)
             case 'METEOR':
-                self.__value = calculate_meteor(reference, text)
+                self.__value = Meteor(reference, text)
 
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")
