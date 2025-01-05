@@ -33,14 +33,14 @@ def send_some_data(request):
     modelResultList = []
     for model in models:
         try:
-        if model in translation_models and len(textTranslation) == 0:
-            return Response({"message": "Error: Empty textTranslation"}, status=400)
-        
-        modelResult = ModelResult(name=model, text=textThema, reference=textTranslation)
-        modelResult.generateResponse()
-        for method in methods:
-            modelResult.listOfMethods.append(MethodResult(name=method))
-        modelResultList.append(modelResult)
+            if model in translation_models and len(textTranslation) == 0:
+                return Response({"message": "Error: Empty textTranslation"}, status=400)
+            
+            modelResult = ModelResult(name=model, text=textThema, reference=textTranslation)
+            modelResult.generateResponse()
+            for method in methods:
+                modelResult.listOfMethods.append(MethodResult(name=method))
+            modelResultList.append(modelResult)
         except Exception as err:
             print(str(err))
             return Response({"error": str(err)}, status=400)

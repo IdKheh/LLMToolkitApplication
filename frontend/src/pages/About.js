@@ -34,9 +34,8 @@ const About = () => {
 					<div className='name'>Jakub Filipiak</div>
 					<div className='things'>
 							<ul>
-								<li>xxxx</li>
-								<li>xxxx</li>
-								<li>xxxx</li>
+								<li>Translation methods</li>
+								<li>Cloud architecture</li>
 							</ul>
 					</div>
 				</div>

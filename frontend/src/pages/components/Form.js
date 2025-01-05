@@ -143,18 +143,6 @@ const Form = ({ setResult, setClicked, setError}) => {
                         </div>
                     ))}
                 </div>
-                <div className='columns'>
-                    <p className='nameOfGroup'>Translations</p>
-                    {methods.map(({ method, check, group }, i) => group === "Translations" && (
-                        <div key={i}>
-                            <label htmlFor={`method-S-${i}`}>
-                                <input id={`method-S-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
-                                <span>{method}</span>
-                            </label>
-                        </div>
-                    ))}
-                </div>
-
 
                 <div className='columns'>
                     <p className='nameOfGroup'>Translation</p>
