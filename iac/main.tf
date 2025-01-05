@@ -1,6 +1,14 @@
 provider "aws" {
   region = "eu-central-1"  
 }
+terraform {
+    required_providers {
+        aws = {
+        source  = "hashicorp/aws"
+        version = "3.56.0"
+        }
+    }
+}
 
 resource "aws_security_group" "allow_http_ssh" {
   name        = "allow_http_ssh"
