@@ -1,8 +1,9 @@
 from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, gradeLevelFleschKincaid, forcast, \
     fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
     spracheRevisedFormula
-from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER
 from LLMToolkit.Translation import  calculate_bleu, calculate_meteor, calculate_rouge
+from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER, getGERIKorektor, checkSpelling, getLanguageConfidenceValue
+
 class MethodResult:
     def __init__(self, name):
         self.__nameMethod = name
@@ -49,10 +50,15 @@ class MethodResult:
             # Grammar
             case 'Part of Speech Tagging':
                 self.__value = getPartOfSpeechTagging(text)
-            case 'Grammatical Error Rate using LanguageTool':
+            case 'Grammar check using LanguageTool':
                 self.__value = getGER(text)
+            case 'Grammar check using IKorektor':
+                self.__value = getGERIKorektor(text)
+            case 'Spelling Checker':
+                self.__value = checkSpelling(text)
+            case 'Language Detection':
+                self.__value = getLanguageConfidenceValue(text, 3)
 
-            
             # Translation
             case 'BLEU':
                 print("reference", reference)
@@ -63,6 +69,8 @@ class MethodResult:
                 reference = reference.split()
                 text = text.split()
                 self.__value = calculate_meteor(reference, text)
+
+
 
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")

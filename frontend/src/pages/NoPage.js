@@ -1,7 +1,7 @@
 import './css/NoPage.css'
 
 const NoPage = () => {
-    return <h1 id='error404'>404</h1>;
+    return <div id='containerNoPage'><h1 id='error404'>404</h1></div>;
   };
   
   export default NoPage;  

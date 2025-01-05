@@ -2,9 +2,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 20vh 10%;
+    padding: 5vh 10%;
     list-style: none;
-    margin: 20px;
+    margin: 20px 20px 5px 20px;
     max-width: 100%;
 }
 
@@ -14,6 +14,10 @@
     background-color: #fff;
     flex: 1 1 300px; 
     box-sizing: border-box;
+}
+
+.output-model{
+    text-align: justify;
 }
 
 .methods {
@@ -34,9 +38,8 @@
     color: #444;
 }
 
-/* Info Icon Styling */
 .info-container {
-    position: relative; /* Ensures popup is positioned relative to the icon */
+    position: relative; 
 }
 
 .info-icon {
@@ -49,8 +52,8 @@
 /* Informacy Popup */
 .informacy-popup {
     position: absolute;
-    top: 30px;
-    left: -50px; /* Adjust for better alignment */
+    bottom: 30px;
+    left: -50px; 
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -97,19 +100,11 @@
     color: #666;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+#error{
+    text-align: center;
+    font-size: 18px;
+    padding: 5vh 0%;
+}
 
 
 .loader-container {

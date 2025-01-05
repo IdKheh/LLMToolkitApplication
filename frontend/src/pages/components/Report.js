@@ -1,6 +1,9 @@
 import React from 'react';
 import './Report.css'
 import POSTaggingBarChart from './helpers/POSTaggingBarChart';
+import STRINGS from '../../Strings';
+import ErrorsList from './helpers/ErrorsList';
+import PDFDownloadComponent from './helpers/PDFDownloadComponent';
 
 const allMethods = [
     { method: "Automated Readability Index",
@@ -66,7 +69,10 @@ const allMethods = [
     { method: "SMOG Easier", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Original", information: [{values:"Value is class"}]},
     { method: "Sprache Formula Revised", information: [{values:"Value is class"}]},
-    { method: "Grammatical Error Rate using LanguageTool", information: [{values:"Value is a percentage of sentences in a text that contain grammatical mistakes."}]},
+    { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERValue}]},
+    { method: STRINGS.GERIKorektorName, information: [{values: STRINGS.GERValue}]},
+    { method: STRINGS.spellCheckerName, information: [{values: STRINGS.spellCheckerValue}]},
+    { method: STRINGS.languageDetectionName, information: [{values: STRINGS.languageDetectionValue}]}
 ];
 
 const getInformacyDetails = (methodName) => {
@@ -93,13 +99,25 @@ const getInformacyDetails = (methodName) => {
 };
 
 const getDisplayedValue = (value, name) => {
-    if (name === "Part of Speech Tagging") {
+    if (name === STRINGS.POSTaggingName) {
         return <POSTaggingBarChart data={value} />;
     }
-    if (name === "Grammatical Error Rate using LanguageTool") {
-        value = parseFloat(value);
+    if (name === STRINGS.GERLanguageToolName || name === STRINGS.GERIKorektorName) {
+        value = parseFloat(value[0]);
         value = Math.round(value * 100) / 100;
         value = value + "%";
+    }
+    if (name === STRINGS.spellCheckerName) {
+        value = Object.keys(value).length;
+    }
+    if (name === STRINGS.languageDetectionName) {
+        var displayedValue = "";
+        for (var i=0; i < value.length; i++) {
+            displayedValue += value[i].language;
+            displayedValue += ": " + Math.round(value[i].confidence * 100) + "%";
+            displayedValue += "; ";
+        }
+        value = displayedValue;
     }
     
     return (
@@ -113,20 +131,27 @@ const getDisplayedValue = (value, name) => {
     );
 };
 
-const Report = ({ resultRequest, clickToRequest }) => {
-    if (!clickToRequest) return <p></p>;
-
-    return (
-        <div>
-            {resultRequest.length > 0 ? (
-                <ul id="report">
+const Report = ({ resultRequest, clickToRequest , error}) => {
+    if(!clickToRequest && error.length>0) return <p id='error'>{error}</p>
+    if(!clickToRequest && resultRequest.length > 0) return (
+      <div>
+        <ul id="report">
                     {resultRequest.map((model, modelIndex) => (
                         <li className="models" key={modelIndex}>
                             <h3>{model.nameModel}</h3>
+                            <p className='output-model'>{model.modelResponse}</p>
                             <ul className="methods">
                                 {model.methodsResult.map((method, methodIndex) => (
                                     <li className="method" key={methodIndex}>
-                                        <p className="nameMethod">{method.nameMethod}</p>
+                                        <p className="nameMethod">
+                                            {method.nameMethod} <br></br>
+                                            {[STRINGS.GERLanguageToolName, STRINGS.GERIKorektorName, STRINGS.spellCheckerName].includes(method.nameMethod) && (
+                                                <ErrorsList 
+                                                    errorsArray={method.nameMethod === STRINGS.spellCheckerName ? method.value : method.value[1]} 
+                                                    methodName={method.nameMethod}
+                                                />
+                                            )}
+                                        </p>
                                         <div className="info-container">
                                             {getDisplayedValue(method.value, method.nameMethod)}
                                         </div>
@@ -136,17 +161,19 @@ const Report = ({ resultRequest, clickToRequest }) => {
                         </li>
                     ))}
                 </ul>
-            ) : (
-                <div className="loader-container">
-                    <div className="bouncing-dots">
-                        <div className="dot"></div>
-                        <div className="dot"></div>
-                        <div className="dot"></div>
-                    </div>
-                </div>
-            )}
+                <PDFDownloadComponent result={resultRequest} />
+              </div>
+    )
+
+    if(clickToRequest) return(<div className="loader-container">
+        <div className="bouncing-dots">
+            <div className="dot"></div>
+            <div className="dot"></div>
+            <div className="dot"></div>
         </div>
-    );
+    </div>)
+
+    if(!clickToRequest) return <p></p>
 };
 
 export default Report;

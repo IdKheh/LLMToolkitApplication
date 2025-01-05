@@ -1,12 +1,15 @@
 import React, { useState, useRef } from 'react';
 import axios from "axios";
 import './Form.css';
+import STRINGS from '../../Strings';
 
-const Form = ({ setResult, setClicked }) => {
+const Form = ({ setResult, setClicked, setError}) => {
+
     const [models, setModels] = useState([
-        { model: "Model 1", check: false },
-        { model: "Model 2", check: false },
-        { model: "Model 3", check: false },
+        { model: "GPT-2", check: false },
+        { model: "Llama-3.2-1B-Instruct", check: false },
+        { model: "Llama-3.2-3B-Instruct", check: false },
+        { model: "T5", check: false },
         { model: "I don't use models", check: true },
     ]);
 
@@ -24,18 +27,16 @@ const Form = ({ setResult, setClicked }) => {
         { method: "Sprache Formula Original", check: false, group: "Proficiency" },
         { method: "Sprache Formula Revised", check: false, group: "Proficiency" },
 
-        { method: "Part of Speech Tagging", check: false, group: "Grammar" },
-        { method: "Grammatical Error Rate using LanguageTool", check: false, group: "Grammar" },
-
-
-        { method: "method 5", check: false, group: "Semantic" },
-        { method: "method 6", check: false, group: "Semantic" },
-        { method: "method 7", check: false, group: "Semantic" },
-        { method: "method 8", check: false, group: "Semantic" },
+        { method: STRINGS.POSTaggingName, check: false, group: "Grammar" },
+        { method: STRINGS.GERLanguageToolName, check: false, group: "Grammar" },
+        { method: STRINGS.GERIKorektorName, check: false, group: "Grammar" },
+        { method: STRINGS.spellCheckerName, check: false, group: "Grammar" },
+        { method: STRINGS.languageDetectionName, check: false, group: "Grammar" },
 
         { method: "BLEU", check: false, group: "Translation" },
         { method: "ROGUE", check: false, group: "Translation" },
         { method: "METEOR", check: false, group: "Translation" }
+
     ]);
 
     const inputRef = useRef();
@@ -76,16 +77,23 @@ const Form = ({ setResult, setClicked }) => {
         const model = filteredModels.map(item => item.model);
         const filteredMethods = methods.filter(item => item.check);
         const method = filteredMethods.map(item => item.method);
-        if (filteredMethods.length != 0|| filteredModels.length != 0 || inputRef.current.value !== '') {
-            setClicked(true);
-            axios.get(`http://127.0.0.1:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
-                .then(function (response) {
-                    console.log(response);
-                    setResult(response.data.message);
-                }).catch(function (error, response){
-                    console.log(response);
-                });
-        }
+        setClicked(true);
+        setResult([]);
+        setError("");
+
+        axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
+            .then(function (response) {
+                setResult(response.data.message);
+                setClicked(false);
+            })
+            .catch(error => {
+                if (error.response && error.response.data && error.response.data.error) {
+                    setError(error.response.data.error);
+                } else {
+                    setError("An unexpected error occurred.");
+                }
+                setClicked(false);
+            });
     };
 
     return (
@@ -103,7 +111,7 @@ const Form = ({ setResult, setClicked }) => {
                                     checked={check}
                                     disabled={
                                         models[models.length - 1].check && i !== models.length - 1
-                                    } // Disable other models if "I don't use models" is checked
+                                    }
                                 />
                                 <span>{model}</span>
                             </label>
@@ -136,8 +144,8 @@ const Form = ({ setResult, setClicked }) => {
                     ))}
                 </div>
                 <div className='columns'>
-                    <p className='nameOfGroup'>Semantic</p>
-                    {methods.map(({ method, check, group }, i) => group === "Semantic" && (
+                    <p className='nameOfGroup'>Translations</p>
+                    {methods.map(({ method, check, group }, i) => group === "Translations" && (
                         <div key={i}>
                             <label htmlFor={`method-S-${i}`}>
                                 <input id={`method-S-${i}`} type="checkbox" onChange={() => handleChangeMethods(check, i)} checked={check}/>
@@ -146,6 +154,7 @@ const Form = ({ setResult, setClicked }) => {
                         </div>
                     ))}
                 </div>
+
 
                 <div className='columns'>
                     <p className='nameOfGroup'>Translation</p>
@@ -176,6 +185,7 @@ const Form = ({ setResult, setClicked }) => {
             </div>
             
             <button id='submitButton' onClick={() => sendRequest()}>Generate report</button>
+
         </div>
     );
 };
