@@ -50,3 +50,4 @@ weasel==0.4.1
 wrapt==1.16.0
 pyspellchecker==0.8.1
 lingua-language-detector==2.0.2
+rouge_score
