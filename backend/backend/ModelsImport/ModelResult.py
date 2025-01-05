@@ -6,11 +6,13 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class ModelResult:
-    def __init__(self, name: str, text: str):
+    def __init__(self, name: str, text: str, reference: str):
         self.nameModel = name
         self.listOfMethods = []
         self.textThema = text
+        self.textTranslation = reference
         self.__response = ""
+
 
     def generateResponse(self):
         if self.nameModel == "I don't use models":
@@ -66,7 +68,8 @@ class ModelResult:
 
     def getResultsOfMethods(self):
         for method in self.listOfMethods:
-            method.execute(self.__response)
+            method.execute(self.__response, self.textTranslation)
+
             
             
     def __requestServer(self,modelName):

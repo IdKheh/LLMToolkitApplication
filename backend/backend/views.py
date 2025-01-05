@@ -13,15 +13,19 @@ def send_some_data(request):
     models = request.GET.get('modelsNLP', '').strip('[]').split(',')
     methods = request.GET.get('methods', '').strip('[]').split(',')
     textThema = request.GET.get('textThema', '')
+    textTranslation = request.GET.get('textTranslation', '')
+    print(textTranslation)
+
+    translation_models = ['BLEU','ROGUE','METEOR']
 
     models = [model.strip() for model in models if model.strip()]
     methods = [method.strip() for method in methods if method.strip()]
 
     if not models:
-        return Response({"error": "Error: You don't choose any LLM."}, status=400)
+        return Response({"error": "Error: You did't choose any LLM."}, status=400)
     
     if not methods:
-        return Response({"error": "Error: You don't choose any method."}, status=400)
+        return Response({"error": "Error: You did't choose any method."}, status=400)
     
     if len(textThema)<10:
         return Response({"error": "Error: The thema of request is to shorter than 10 chars. Please add some information."}, status=400)
@@ -29,14 +33,18 @@ def send_some_data(request):
     modelResultList = []
     for model in models:
         try:
-            modelResult = ModelResult(name=model, text=textThema)
-            modelResult.generateResponse()
-            for method in methods:
-                modelResult.listOfMethods.append(MethodResult(name=method))
-            modelResultList.append(modelResult)
+        if model in translation_models and len(textTranslation) == 0:
+            return Response({"message": "Error: Empty textTranslation"}, status=400)
+        
+        modelResult = ModelResult(name=model, text=textThema, reference=textTranslation)
+        modelResult.generateResponse()
+        for method in methods:
+            modelResult.listOfMethods.append(MethodResult(name=method))
+        modelResultList.append(modelResult)
         except Exception as err:
             print(str(err))
             return Response({"error": str(err)}, status=400)
+
 
     responseData = []
     for modelResult in modelResultList:
