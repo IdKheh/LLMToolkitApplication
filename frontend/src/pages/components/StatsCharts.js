@@ -1,10 +1,8 @@
 import React, { useRef } from 'react';
 import './StatsCharts.css'
 import { useState } from 'react';
-import { Data } from "./Data.js";
 import { BarChart } from './BarPlot.js';
 import { CategoryScale } from "chart.js";
-import {RadarData} from "./RadarData.js"
 import { RadarChart } from './RadarChart.js'
 import Chart from "chart.js/auto"
 

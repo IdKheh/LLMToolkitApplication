@@ -14,10 +14,12 @@ export const BarChart = ({ chartData, title }) => {
         ref={chartRef}
         data={chartData}
         options={{
-          responsive: true,
-          maintainAspectRatio: true,
+          aspectRatio:1,
           plugins: {
             title: {
+              font: {
+                size: 20
+              },
               display: true,
               text: title,
             },
@@ -27,13 +29,8 @@ export const BarChart = ({ chartData, title }) => {
           },
           scales: {
             x: {
-              ticks: {
-                font:{
-                  size:11,
-                },
-              },
               grid: {
-                display: false, // Optional: Hide grid lines for a cleaner look
+                display: false, 
                 padding:0,
               },
             },
@@ -44,8 +41,6 @@ export const BarChart = ({ chartData, title }) => {
             }
           },
         }}
-        height={150}
-        width={300}
       />
     </div>
   );

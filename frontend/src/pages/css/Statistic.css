@@ -98,17 +98,15 @@
     min-height: 49.3vh;
 }
 
-  .ui-autocomplete {
+.ui-autocomplete {
     box-sizing: border-box;
-    width:73.4% !important;
-    margin-left: 12.5%;
     padding: 2vh 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     border: 1px solid #ccc;
     border-radius: 4px;
     background-color: white;
-    z-index: 1000; 
-  }
+    z-index: 1000;
+}
   
   .ui-menu-item {
     padding: 10px;

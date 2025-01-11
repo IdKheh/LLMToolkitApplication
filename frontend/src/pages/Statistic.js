@@ -15,7 +15,6 @@ const Statistic = () => {
 	const [isOpen,setIsOpen] = useState(false)
 	const [modelData,setModelData] = useState(null)
 	const [loading,setLoading] = useState(false)
-	const [pdfLoading,setPdfLoading] = useState(false)
 	const [error,setError] = useState('')
 	const [top10Data, setTop10Data] = useState(null);
 	const [modelRow,setModelRow] = useState(null);
@@ -23,7 +22,6 @@ const Statistic = () => {
   	const [sameFamily, setSameFamily] = useState(null);
 	const [modelsNames,setModelsNames] = useState([]);
 	const [modelsLoading,setModelsLoading] = useState(false)
-	const [pdfImage,setPdfImage] = useState(null);
 	const modelCardRef = useRef(null);
 	const statsChartsRef = useRef(null);
 	const inputRef = useRef(null);
@@ -49,38 +47,13 @@ const Statistic = () => {
 		if (inputRef.current) {
 		  $(inputRef.current).autocomplete({
 			source: modelsNames,
+			position: { my: "right top", at: "right bottom" },
 			select: (event, ui) => {
 			  setModelName(ui.item.value);
 			}
 		  });
 		}
 	  }, [modelsNames]); 
-
-	//   useEffect(() => {
-	// 	if(modelData && top10Data && similarPerformance && modelName && sameFamily && modelRow){
-	// 		setPdfLoading(true)
-	// 		handleDownloadPdf();
-	// 	}
-	//   },[modelData,top10Data,similarPerformance,modelName,sameFamily,modelRow])
-
-	// const handleDownloadPdf = async () => {
-	// 	const element = printRef.current;
-	// 	if (!element) {
-	// 	console.error('Element not found');
-	// 	return;
-	// 	}
-	// 	try {
-	// 		setTimeout(async () => {
-	// 			const canvas = await html2canvas(element);
-	// 			const data = canvas.toDataURL('image/png');
-	// 			console.log('Captured image data:', data);
-	// 			setPdfImage(data);
-	// 			setPdfLoading(false);
-	// 		})
-	// 	} catch (error) {
-	// 	console.error('Error capturing image:', error);
-	// 	}
-	// };
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setLoading(true);
@@ -109,7 +82,6 @@ const Statistic = () => {
 	};
 	
 	
-
 	return (
         <div id='container'>
 			{modelsLoading  && (

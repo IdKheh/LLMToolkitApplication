@@ -137,7 +137,7 @@ const Form = ({ setResult, setClicked, setError}) => {
                     ))}
                 </div>
                 <div className='columns'>
-                    <p className='nameOfGroup'>Translations</p>
+                    {/* <p className='nameOfGroup'>Translations</p> */}
                     {methods.map(({ method, check, group }, i) => group === "Translations" && (
                         <div key={i}>
                             <label htmlFor={`method-S-${i}`}>

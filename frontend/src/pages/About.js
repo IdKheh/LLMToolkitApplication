@@ -44,9 +44,9 @@ const About = () => {
 					<div className='name'>Miłosz Koźlicki</div>
 					<div className='things'>
 							<ul>
-								<li>xxxx</li>
-								<li>xxxx</li>
-								<li>xxxx</li>
+								<li>Implementation of the Statistic part of the application</li>
+								<li>Implementation of the Statistic PDF raport</li>
+								<li>Implementation of the HuggingFace API and Open LLM Leaderboard data processing</li>
 							</ul>
 					</div>
 				</div>

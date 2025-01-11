@@ -74,12 +74,6 @@ def get_model_data(request):
             "sameFamily": model_stats.sameFamily,
             "modelRow" : model_stats.modelRow
         }
-        # result.append(model_stats.top10BBH)
-        # result.append(model_stats.top10GPQA)
-        # result.append(model_stats.top10Math)
-        # result.append(model_stats.top10Mmlu)
-        # result.append(model_stats.top10Musr)
-        # result.append(model_stats.top10IFEval)
         return Response({"message": result})
     except Exception as e:
         return Response({"error":str(e)},status=400)

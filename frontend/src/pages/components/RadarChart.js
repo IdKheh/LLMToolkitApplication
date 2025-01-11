@@ -9,6 +9,8 @@ export const RadarChart = ({ chartData, title }) => {
       <Radar
         data={chartData}
         options={{
+          responsive: true,
+          maintainAspectRatio: false,
           plugins: {
             title: {
               display: true,
@@ -28,8 +30,6 @@ export const RadarChart = ({ chartData, title }) => {
             }
           }
         }}
-        height={150} 
-        width={300} 
       />
     </div>
   );
