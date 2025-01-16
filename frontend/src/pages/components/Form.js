@@ -33,10 +33,10 @@ const Form = ({ setResult, setClicked, setError}) => {
         { method: STRINGS.spellCheckerName, check: false, group: "Grammar" },
         { method: STRINGS.languageDetectionName, check: false, group: "Grammar" },
 
-
         { method: "BLEU", check: false, group: "Translation" },
         { method: "ROGUE", check: false, group: "Translation" },
         { method: "METEOR", check: false, group: "Translation" }
+
     ]);
 
     const inputRef = useRef();
@@ -77,16 +77,23 @@ const Form = ({ setResult, setClicked, setError}) => {
         const model = filteredModels.map(item => item.model);
         const filteredMethods = methods.filter(item => item.check);
         const method = filteredMethods.map(item => item.method);
-        if (filteredMethods.length != 0|| filteredModels.length != 0 || inputRef.current.value !== '') {
-            setClicked(true);
-            axios.get(`http://127.0.0.1:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}`) //&textTranslation=${inputReferenceTranslation.current.value}
-                .then(function (response) {
-                    console.log(response);
-                    setResult(response.data.message);
-                }).catch(function (error, response){
-                    console.log(response);
-                });
-        }
+        setClicked(true);
+        setResult([]);
+        setError("");
+
+        axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
+            .then(function (response) {
+                setResult(response.data.message);
+                setClicked(false);
+            })
+            .catch(error => {
+                if (error.response && error.response.data && error.response.data.error) {
+                    setError(error.response.data.error);
+                } else {
+                    setError("An unexpected error occurred.");
+                }
+                setClicked(false);
+            });
     };
 
     return (

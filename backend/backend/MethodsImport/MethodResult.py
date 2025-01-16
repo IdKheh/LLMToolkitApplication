@@ -1,8 +1,8 @@
 from LLMToolkit.Proficiency import ARI, colemanLiau, daleChall, fleschKincaid, gradeLevelFleschKincaid, forcast, \
     fryFormula, gunningFog, linsearWrite, raygorEstimate, readabilitySMOG, easierSMOG, spracheOriginalFormula, \
     spracheRevisedFormula
+from LLMToolkit.Translation import  calculate_bleu, calculate_meteor, calculate_rouge
 from LLMToolkit.Grammar import getPartOfSpeechTagging, getGER, getGERIKorektor, checkSpelling, getLanguageConfidenceValue
-# from LLMToolkit.Translation import  Bleu, Meteor, Rogue
 
 class MethodResult:
     def __init__(self, name):
@@ -52,22 +52,26 @@ class MethodResult:
                 self.__value = getPartOfSpeechTagging(text)
             case 'Grammar check using LanguageTool':
                 self.__value = getGER(text)
-
-            
-            # # Translation
-            # case 'BLEU':
-            #     self.__value = Bleu(reference, text)
-            # case 'ROUGE':
-            #     self.__value = Rogue(reference, text)
-            # case 'METEOR':
-            #     self.__value = Meteor(reference, text)
-
             case 'Grammar check using IKorektor':
                 self.__value = getGERIKorektor(text)
             case 'Spelling Checker':
                 self.__value = checkSpelling(text)
             case 'Language Detection':
                 self.__value = getLanguageConfidenceValue(text, 3)
+
+            # Translation
+            case 'BLEU':
+                print("reference", reference)
+                self.__value = calculate_bleu(reference, text)
+            case 'ROGUE':
+                self.__value = calculate_rouge(reference, text)
+            case 'METEOR':
+                reference = reference.split()
+                text = text.split()
+                self.__value = calculate_meteor(reference, text)
+
+
+
             case _:
                 raise Exception(f"Unknown method '{self.__nameMethod}'")
         return self.__value

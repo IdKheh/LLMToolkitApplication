@@ -23,10 +23,10 @@ def send_some_data(request):
     methods = [method.strip() for method in methods if method.strip()]
 
     if not models:
-        return Response({"error": "Error: You don't choose any LLM."}, status=400)
+        return Response({"error": "Error: You did't choose any LLM."}, status=400)
     
     if not methods:
-        return Response({"error": "Error: You don't choose any method."}, status=400)
+        return Response({"error": "Error: You did't choose any method."}, status=400)
     
     if len(textThema)<10:
         return Response({"error": "Error: The thema of request is to shorter than 10 chars. Please add some information."}, status=400)
@@ -38,6 +38,9 @@ def send_some_data(request):
             return Response({"message": "Error: Empty textTranslation"}, status=400)
         
         try:
+            if model in translation_models and len(textTranslation) == 0:
+                return Response({"message": "Error: Empty textTranslation"}, status=400)
+            
             modelResult = ModelResult(name=model, text=textThema, reference=textTranslation)
             modelResult.generateResponse()
             for method in methods:
@@ -46,6 +49,7 @@ def send_some_data(request):
         except Exception as err:
             print(str(err))
             return Response({"error": str(err)}, status=400)
+
 
     responseData = []
     for modelResult in modelResultList:
