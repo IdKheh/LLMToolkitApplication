@@ -2,7 +2,7 @@
     margin-top: 5vh;
 }
 
-#thema{
+/* #thema{
     width: 75%;
     box-sizing:border-box;
     height: max(20vh,250px);
@@ -11,7 +11,7 @@
     margin-left: 12.5%;
     padding: 10px;
     margin-bottom: 2vh;
-}
+} */
 
 .card{
     display: flex;
