@@ -40,7 +40,7 @@ const Form = ({ setResult, setClicked, setError}) => {
     ]);
 
     const inputRef = useRef();
-    const inputReferenceTranslation = useRef();
+    const inputReferenceTranslation = useRef(0);
     const [shwoTranslation, setTranslation] = useState(false);
 
     const handleChangeModels = (check, i) => {
@@ -80,7 +80,6 @@ const Form = ({ setResult, setClicked, setError}) => {
         setClicked(true);
         setResult([]);
         setError("");
-
         axios.get(`http://localhost:8000/test/?modelsNLP=[${model}]&methods=[${method}]&textThema=${inputRef.current.value}&textTranslation=${inputReferenceTranslation.current.value}`)
             .then(function (response) {
                 setResult(response.data.message);
