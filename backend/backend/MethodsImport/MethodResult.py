@@ -63,6 +63,7 @@ class MethodResult:
             case 'BLEU':
                 print("reference", reference)
                 self.__value = calculate_bleu(reference, text)
+                print("Po teście")
             case 'ROGUE':
                 self.__value = calculate_rouge(reference, text)
             case 'METEOR':
