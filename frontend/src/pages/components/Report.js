@@ -72,7 +72,10 @@ const allMethods = [
     { method: STRINGS.GERLanguageToolName, information: [{values: STRINGS.GERValue}]},
     { method: STRINGS.GERIKorektorName, information: [{values: STRINGS.GERValue}]},
     { method: STRINGS.spellCheckerName, information: [{values: STRINGS.spellCheckerValue}]},
-    { method: STRINGS.languageDetectionName, information: [{values: STRINGS.languageDetectionValue}]}
+    { method: STRINGS.languageDetectionName, information: [{values: STRINGS.languageDetectionValue}]},
+    { method: STRINGS.BLEUName, information: [{values: STRINGS.BLEUValue}]},
+    { method: STRINGS.ROGUName, information: [{values: STRINGS.ROGUValue}]},
+    { method: STRINGS.METEORName, information: [{values: STRINGS.METEORValue}]}
 ];
 
 const getInformacyDetails = (methodName) => {
