@@ -15,7 +15,7 @@ class MethodResult:
             "value": self.__value
         }
 
-    def execute(self, text):
+    def execute(self, text, reference):
         match self.__nameMethod:
             # Proficiency
             case 'Automated Readability Index':
