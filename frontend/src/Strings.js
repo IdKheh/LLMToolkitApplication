@@ -13,6 +13,12 @@ const STRINGS = {
     PDFTitle: "LLM output grading report",
     languageDetectionName: "Language Detection",
     languageDetectionValue: "Top 3 detected languages and confidence for the given text.",
+    BLEUName: "BLEU",
+    BLEUValue: "The BLEU score is a metric for evaluating a generated sentence to a reference sentence. The higher the BLEU score, the better the translation.",
+    ROGUName: "ROGUE",
+    ROGUValue: "ROGUE is a metric for evaluating a generated sentence to a reference sentence. The higher the ROGUE score, the better the translation.",
+    METEORName: "METEOR",
+    METEORValue: "METEOR is a metric for evaluating a generated sentence to a reference sentence. The higher the METEOR score, the better the translation.",
 };
 
 export default STRINGS;

@@ -62,14 +62,14 @@ class MethodResult:
             # Translation
             case 'BLEU':
                 print("reference", reference)
-                self.__value = calculate_bleu(reference, text)
+                self.__value = round(calculate_bleu(reference, text),2)
                 print("Po teście")
             case 'ROGUE':
-                self.__value = calculate_rouge(reference, text)
+                self.__value = round(calculate_rouge(reference, text),2)
             case 'METEOR':
                 reference = reference.split()
                 text = text.split()
-                self.__value = calculate_meteor(reference, text)
+                self.__value = round(calculate_meteor(reference, text),2)
 
 
 

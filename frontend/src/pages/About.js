@@ -34,9 +34,8 @@ const About = () => {
 					<div className='name'>Jakub Filipiak</div>
 					<div className='things'>
 							<ul>
-								<li>xxxx</li>
-								<li>xxxx</li>
-								<li>xxxx</li>
+								<li>Translation methods</li>
+								<li>Cloud architecture</li>
 							</ul>
 					</div>
 				</div>
@@ -46,7 +45,7 @@ const About = () => {
 							<ul>
 								<li>Implementation of the Statistic part of the application</li>
 								<li>Implementation of the Statistic PDF raport</li>
-								<li>Implementation of the HuggingFace API and Open LLM Leaderboard data processing</li>
+								<li>Implementation of HuggingFace API's and Open LLM Leaderboard's data processing</li>
 							</ul>
 					</div>
 				</div>
