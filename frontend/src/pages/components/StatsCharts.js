@@ -62,11 +62,24 @@ const StatsCharts = (data) => {
     let sameFamilyRadar
     if (sameFamilyParsed.length > 1){
         if (bestFamilyModel.id === modelRow[0].id){
-            sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-2],modelRow[0]])
-            familyChartTitle ='Chosen model vs Same family model'
+            if(sameFamilyParsed[sameFamilyParsed.length-2]!=modelRow[0]){
+                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-2],modelRow[0]])
+                familyChartTitle ='Chosen model vs Same family model'
+            }
+            else{
+                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-3],modelRow[0]])
+                familyChartTitle ='Chosen model vs Same family model'
+            }
+
         } else{
-            sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-1],modelRow[0]])
-            familyChartTitle = 'Chosen model vs best model in the family'
+            if(sameFamilyParsed[sameFamilyParsed.length-2]!=modelRow[0]){
+                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-1],modelRow[0]])
+                familyChartTitle ='Chosen model vs Same family model'
+            }
+            else{
+                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-2],modelRow[0]])
+                familyChartTitle ='Chosen model vs Same family model'
+            }
         }
     }
     
