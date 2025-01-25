@@ -95,7 +95,8 @@
     margin-bottom: 2vh;
 }
 #container{
-    min-height: 49.3vh;
+    /* min-height: 49.3vh; */
+    min-height: 56.25vh;
 }
 
 .ui-autocomplete {

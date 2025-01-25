@@ -159,7 +159,7 @@ const Form = ({ setResult, setClicked, setError}) => {
                 </div>
             </div>
             <div className='inputs'>
-                <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50}></textarea>
+                <textarea id='thema' ref={inputRef} placeholder='Write text there...' rows={5} cols={50} spellCheck="false"></textarea>
                 {shwoTranslation && 
                     <textarea 
                         id='translation' 
@@ -167,6 +167,7 @@ const Form = ({ setResult, setClicked, setError}) => {
                         placeholder='Write translation there...' 
                         rows={5} cols={50} 
                         style={{}}
+                        spellCheck="false"
                     ></textarea>
                 }
             </div>

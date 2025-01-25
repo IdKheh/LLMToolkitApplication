@@ -60,26 +60,31 @@ const StatsCharts = (data) => {
     const bestFamilyModel = sameFamilyParsed[sameFamilyParsed.length-1]
     let familyChartTitle
     let sameFamilyRadar
-    if (sameFamilyParsed.length > 1){
-        if (bestFamilyModel.id === modelRow[0].id){
-            if(sameFamilyParsed[sameFamilyParsed.length-2]!=modelRow[0]){
-                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-2],modelRow[0]])
-                familyChartTitle ='Chosen model vs Same family model'
+    if (sameFamilyParsed.length > 1) {
+        if(sameFamilyParsed.length == 2){
+            if(sameFamilyParsed[0] == modelRow[0]){
+                sameFamilyRadar = transformRadar([sameFamilyParsed[1], modelRow[0]]);
+                familyChartTitle = 'Chosen model vs Same family model';
             }
             else{
-                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-3],modelRow[0]])
-                familyChartTitle ='Chosen model vs Same family model'
+                sameFamilyRadar = transformRadar([sameFamilyParsed[0], modelRow[0]]);
+                familyChartTitle = 'Chosen model vs Same family model';
             }
-
-        } else{
-            if(sameFamilyParsed[sameFamilyParsed.length-2]!=modelRow[0]){
-                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-1],modelRow[0]])
-                familyChartTitle ='Chosen model vs Same family model'
+        } else {
+            const bestFamilyModelIndex = sameFamilyParsed.findIndex(model => model.id === bestFamilyModel.id);
+            const chosenModelIndex = sameFamilyParsed.findIndex(model => model.id === modelRow[0].id);
+        
+            let comparisonModelIndex = bestFamilyModelIndex === chosenModelIndex ? bestFamilyModelIndex - 1 : bestFamilyModelIndex;
+        
+            // Handle edge cases where the chosen model is at the start or end of the array
+            if (comparisonModelIndex < 0) {
+                comparisonModelIndex = 1;
+            } else if (comparisonModelIndex >= sameFamilyParsed.length) {
+                comparisonModelIndex = sameFamilyParsed.length - 2;
             }
-            else{
-                sameFamilyRadar =  transformRadar([sameFamilyParsed[sameFamilyParsed.length-2],modelRow[0]])
-                familyChartTitle ='Chosen model vs Same family model'
-            }
+        
+            sameFamilyRadar = transformRadar([sameFamilyParsed[comparisonModelIndex], modelRow[0]]);
+            familyChartTitle = 'Chosen model vs Same family model';
         }
     }
     
